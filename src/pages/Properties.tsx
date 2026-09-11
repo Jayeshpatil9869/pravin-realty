@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { PROPERTIES, Property } from '../data/properties';
 import { PropertyCard } from '../components/PropertyCard';
 import { PropertyModal } from '../components/PropertyModal';
+import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
 import { SectionEyebrow } from '../components/Icons';
 import { Search } from 'lucide-react';
@@ -16,7 +17,7 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [priceSort, setPriceSort] = useState<'default' | 'low-high' | 'high-low'>('default');
 
-  const categories = ['All', 'Residential', 'Luxury Villa', 'Commercial', 'Penthouse'];
+  const categories = ['All', 'Residential', 'Commercial', 'Luxury Villa', 'Penthouse', 'Township'];
 
   const filteredProperties = useMemo(() => {
     let list = PROPERTIES.filter((p) => {
@@ -136,7 +137,10 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
         </div>
       </section>
 
-      {/* 4. AGENT CALLOUT SECTION */}
+      {/* 4. GRAND CTA VIDEO BANNER */}
+      <GrandCtaBanner />
+
+      {/* 5. AGENT CALLOUT SECTION */}
       <AgentCallout onOpenConsultation={onOpenConsultation} />
 
       {/* Property Details Modal */}
