@@ -96,55 +96,54 @@ export default function AboutSection3({
           </TimelineContent>
 
           {/* Stats Bar */}
-          <div className="flex flex-wrap lg:justify-start justify-between items-center py-4 text-sm font-sans">
+          <div className="flex flex-col sm:flex-row lg:justify-between justify-between items-start sm:items-center py-4 text-sm font-sans gap-4 border-b border-neutral-100/80">
             <TimelineContent
               as="div"
               animationNum={2}
               timelineRef={heroRef}
               customVariants={revealVariants}
-              className="flex items-center gap-4"
+              className="flex flex-wrap items-center gap-3 sm:gap-4"
             >
-              <div className="flex items-center gap-1.5 sm:text-base text-xs font-normal">
-                <span className="text-[#121316] font-normal">12+</span>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm md:text-base font-normal">
+                <span className="text-[#121316] font-normal font-medium">12+</span>
                 <span className="text-neutral-500 font-normal">years in Pune</span>
                 <span className="text-neutral-300 ml-2">|</span>
               </div>
-              <div className="flex items-center gap-1.5 sm:text-base text-xs font-normal">
-                <span className="text-[#121316] font-normal">500+</span>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm md:text-base font-normal">
+                <span className="text-[#121316] font-normal font-medium">500+</span>
                 <span className="text-neutral-500 font-normal">deals closed</span>
               </div>
             </TimelineContent>
 
-            <div className="lg:absolute right-0 bottom-16 flex lg:flex-col flex-row-reverse lg:gap-0 gap-4 text-right">
+            <div className="flex flex-wrap items-baseline gap-3 sm:gap-6 text-left sm:text-right">
               <TimelineContent
                 as="div"
                 animationNum={3}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="flex lg:text-4xl sm:text-3xl text-2xl items-baseline gap-2 mb-1 justify-end"
+                className="flex items-baseline gap-1.5 sm:gap-2"
               >
-                <span className="text-[#121316] font-normal tracking-tight">₹450+ Cr</span>
-                <span className="text-neutral-500 uppercase text-xs sm:text-sm font-normal">assets</span>
+                <span className="text-[#121316] font-normal text-xl sm:text-2xl md:text-3xl tracking-tight">₹450+ Cr</span>
+                <span className="text-neutral-500 uppercase text-[10px] sm:text-xs font-normal">assets</span>
               </TimelineContent>
               <TimelineContent
                 as="div"
                 animationNum={4}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="flex items-center gap-1.5 sm:text-sm text-xs justify-end"
+                className="flex items-center gap-1.5 text-xs sm:text-sm"
               >
-                <span className="text-[#121316] font-normal">98%</span>
-                <span className="text-neutral-500 font-normal">client satisfaction</span>
-                <span className="text-neutral-300 lg:hidden block ml-2">|</span>
+                <span className="text-[#121316] font-normal font-medium">98%</span>
+                <span className="text-neutral-500 font-normal">satisfaction</span>
               </TimelineContent>
             </div>
           </div>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mt-6 font-sans">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 mt-6 font-sans text-left">
           <div className="md:col-span-2">
-            <h1 className="text-2xl sm:text-4xl md:text-[42px] font-normal text-[#121316] tracking-[-0.02em] leading-[1.2] mb-6 no-underline">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-[#121316] tracking-[-0.02em] leading-[1.2] mb-4 sm:mb-6 no-underline">
               <VerticalCutReveal
                 splitBy="words"
                 staggerDuration={0.08}
@@ -166,7 +165,7 @@ export default function AboutSection3({
               animationNum={5}
               timelineRef={heroRef}
               customVariants={revealVariants}
-              className="grid md:grid-cols-2 gap-6 md:gap-8 text-neutral-600"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-neutral-600"
             >
               <TimelineContent
                 as="div"
@@ -194,7 +193,7 @@ export default function AboutSection3({
           </div>
 
           <div className="md:col-span-1">
-            <div className="text-left md:text-right">
+            <div className="text-left md:text-right pt-2 md:pt-0">
               <TimelineContent
                 as="div"
                 animationNum={8}
@@ -209,7 +208,7 @@ export default function AboutSection3({
                 animationNum={9}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="text-neutral-500 text-xs sm:text-sm font-normal mb-6"
+                className="text-neutral-500 text-xs sm:text-sm font-normal mb-4 sm:mb-6"
               >
                 Pune Prime Properties & Advisory
               </TimelineContent>
@@ -219,9 +218,9 @@ export default function AboutSection3({
                 animationNum={10}
                 timelineRef={heroRef}
                 customVariants={revealVariants}
-                className="mb-6"
+                className="mb-4 sm:mb-6"
               >
-                <p className="text-[#121316] text-sm font-normal leading-relaxed">
+                <p className="text-[#121316] text-xs sm:text-sm font-normal leading-relaxed">
                   Ready to find your dream residence or prime commercial space in Pune?
                 </p>
               </TimelineContent>
@@ -232,7 +231,7 @@ export default function AboutSection3({
                 timelineRef={heroRef}
                 customVariants={revealVariants}
                 onClick={onOpenConsultation}
-                className="bg-[#121316] hover:bg-black text-white px-6 py-3.5 rounded-full text-xs font-normal uppercase tracking-widest transition-colors flex items-center gap-2 ml-0 md:ml-auto cursor-pointer no-underline border-none"
+                className="w-full sm:w-auto bg-[#121316] hover:bg-black text-white px-5 sm:px-6 py-3 sm:py-3.5 rounded-full text-xs font-normal uppercase tracking-wider sm:tracking-widest transition-colors flex items-center justify-center gap-2 ml-0 md:ml-auto cursor-pointer no-underline border-none shadow-sm active:scale-95"
               >
                 <span>SCHEDULE CONSULTATION</span>
                 <ArrowRight className="w-3.5 h-3.5" />

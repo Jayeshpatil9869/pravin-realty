@@ -84,16 +84,15 @@ export function About({ onOpenConsultation }: AboutProps) {
   ];
 
   return (
-    <div className="min-h-screen pt-24 md:pt-28 space-y-16 md:space-y-24">
+    <div className="min-h-screen pt-24 sm:pt-28 md:pt-36 space-y-12 sm:space-y-16 md:space-y-24 text-left">
       
       {/* 1. HERO ANIMATED SECTION (Vertical Cut Reveal & Clipped SVG Hero) */}
       <AboutSection3 onOpenConsultation={onOpenConsultation} />
 
-
-      {/* 4. MISSION & STORY SECTION (Split Images) */}
-      <section className="px-4 md:px-8">
-        <div className="max-w-7xl mx-auto space-y-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
+      {/* 2. MISSION & STORY SECTION (Split Images) */}
+      <section className="px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14">
             
             {/* Left tag */}
             <div className="lg:col-span-3">
@@ -101,14 +100,14 @@ export function About({ onOpenConsultation }: AboutProps) {
             </div>
 
             {/* Right text */}
-            <div className="lg:col-span-9 space-y-5">
-              <h2 className="text-2xl md:text-3xl lg:text-[34px] font-normal text-[#121316] tracking-[-0.015em] leading-[1.3]">
+            <div className="lg:col-span-9 space-y-4 sm:space-y-5">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-normal text-[#121316] tracking-[-0.015em] leading-[1.3]">
                 "With Pravin Realty, you’re not just finding a property — you’re finding the right opportunity with the right guidance."
               </h2>
-              <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-normal">
+              <p className="text-neutral-600 text-xs sm:text-sm md:text-base leading-relaxed font-normal">
                 Whether you’re looking to buy, sell, rent, or invest, our team provides personalized guidance based on your property requirements and investment goals. We combine local market knowledge with a straightforward, client-first approach to help you make confident property decisions.
               </p>
-              <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-normal">
+              <p className="text-neutral-600 text-xs sm:text-sm md:text-base leading-relaxed font-normal">
                 From our corporate headquarters at Nandan Probiz, Balewadi, we manage prominent residential and commercial portfolios across Baner, Balewadi, Aundh, Koregaon Park, and Hinjewadi IT Park.
               </p>
             </div>
@@ -117,7 +116,7 @@ export function About({ onOpenConsultation }: AboutProps) {
 
           {/* 2 Split Images with GSAP Interactive Hover Expansion */}
           <div 
-            className="flex flex-col md:flex-row gap-6 w-full items-stretch"
+            className="flex flex-col md:flex-row gap-4 sm:gap-6 w-full items-stretch"
             onMouseLeave={handleMouseLeaveSplit}
           >
             <div 
@@ -148,19 +147,19 @@ export function About({ onOpenConsultation }: AboutProps) {
         </div>
       </section>
 
-      {/* 5. SERVICES SECTION */}
-      <section className="px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      {/* 3. SERVICES SECTION */}
+      <section className="px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
           
           {/* Left Column */}
-          <div className="lg:col-span-5 space-y-5">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
             <SectionEyebrow label="OUR CORE SERVICES" />
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#121316] tracking-[-0.015em] leading-[1.2]">
               From Boardroom to Bedrooms — We Handle It All
             </h2>
 
-            <p className="text-neutral-500 text-sm leading-relaxed font-normal">
+            <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed font-normal">
               Guided by over 12 years of hands-on market experience, our end-to-end real estate brokerage services ensure every step of your transaction is transparent and effortless.
             </p>
 
@@ -174,19 +173,19 @@ export function About({ onOpenConsultation }: AboutProps) {
           </div>
 
           {/* Right Column: 3 Service Cards */}
-          <div className="lg:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
             {services.map((srv, idx) => {
               const Icon = srv.icon;
               return (
                 <div 
                   key={idx} 
-                  className="bg-white p-6 sm:p-7 rounded-3xl border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex items-start gap-4 hover:shadow-md transition-shadow"
+                  className="bg-white p-5 sm:p-7 rounded-3xl border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex items-start gap-3.5 sm:gap-4 hover:shadow-md transition-shadow"
                 >
-                  <div className="w-10 h-10 rounded-2xl bg-[#FDE8D7] text-[#9A3412] flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#FDE8D7] text-[#9A3412] flex items-center justify-center shrink-0 mt-0.5">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h3 className="font-normal text-base sm:text-lg text-[#121316] mb-1">
+                    <h3 className="font-normal text-sm sm:text-base md:text-lg text-[#121316] mb-1">
                       {srv.title}
                     </h3>
                     <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed font-normal">
@@ -201,26 +200,26 @@ export function About({ onOpenConsultation }: AboutProps) {
         </div>
       </section>
 
-      {/* 6. TEAM SECTION (6 Team Members) */}
-      <section className="px-4 md:px-8">
-        <div className="max-w-7xl mx-auto space-y-10">
+      {/* 4. TEAM SECTION (6 Team Members) */}
+      <section className="px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
           
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <SectionEyebrow label="MEET OUR LEADERSHIP" />
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#121316] tracking-[-0.015em]">
               Meet the People Behind Pravin Realty
             </h2>
-            <p className="text-neutral-500 text-sm font-normal">
+            <p className="text-neutral-500 text-xs sm:text-sm font-normal">
               Our seasoned property consultants and documentation advisors are dedicated to your peace of mind.
             </p>
           </div>
 
           {/* 6 Team Members Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {TEAM_MEMBERS.map((member) => (
               <div 
                 key={member.id} 
-                className="bg-white rounded-3xl p-4 border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-md transition-all text-center space-y-3 group"
+                className="bg-white rounded-3xl p-3.5 sm:p-4 border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-md transition-all text-center space-y-3 group"
               >
                 <div className="aspect-[4/4.5] w-full rounded-2xl overflow-hidden bg-neutral-100">
                   <img 
@@ -230,10 +229,10 @@ export function About({ onOpenConsultation }: AboutProps) {
                   />
                 </div>
                 <div>
-                  <h3 className="font-normal text-base text-[#121316] group-hover:text-[#A15422] transition-colors">
+                  <h3 className="font-normal text-sm sm:text-base text-[#121316] group-hover:text-[#A15422] transition-colors">
                     {member.name}
                   </h3>
-                  <p className="text-xs text-neutral-500 font-normal mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-neutral-500 font-normal mt-0.5">
                     {member.role}
                   </p>
                 </div>
@@ -244,10 +243,10 @@ export function About({ onOpenConsultation }: AboutProps) {
         </div>
       </section>
 
-      {/* 7. GRAND CTA BANNER */}
+      {/* 5. GRAND CTA BANNER */}
       <GrandCtaBanner />
 
-      {/* 8. AGENT CALLOUT */}
+      {/* 6. AGENT CALLOUT */}
       <AgentCallout onOpenConsultation={onOpenConsultation} />
 
     </div>

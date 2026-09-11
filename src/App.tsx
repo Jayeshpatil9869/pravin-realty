@@ -91,7 +91,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen bg-[#FBFBFB] text-[#121316] flex flex-col font-sans selection:bg-[#FDE8D7] selection:text-[#9A3412]">
-        <Header onOpenConsultation={() => setIsConsultOpen(true)} />
+        <Header />
         
         <main className="flex-grow">
           <Routes>
