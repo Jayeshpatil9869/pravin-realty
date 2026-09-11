@@ -117,10 +117,47 @@ export function Footer() {
 
         </div>
 
-        {/* Middle Meta Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 font-normal pb-6 sm:pb-10 border-t border-neutral-900 pt-6 gap-2 text-center sm:text-left">
+        {/* Bottom Meta & Credit Row */}
+        <div className="flex flex-col lg:flex-row items-center justify-between text-xs text-neutral-400 font-normal pb-6 sm:pb-10 border-t border-neutral-900 pt-6 gap-3 sm:gap-4 text-center lg:text-left">
           <p>© {new Date().getFullYear()} Pravin Realty. All Rights Reserved.</p>
-          <p className="text-neutral-500">MahaRERA Compliant Agency • West Pune Real Estate</p>
+          
+          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-x-4 sm:gap-x-5 gap-y-1.5 text-[11px] sm:text-xs text-neutral-400">
+            <span>
+              Crafted by{' '}
+              <a 
+                href="https://divinescode.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-300 hover:text-white transition-colors underline underline-offset-4 decoration-neutral-700 hover:decoration-white"
+              >
+                Divines Code
+              </a>
+            </span>
+            <span className="text-neutral-700">•</span>
+            <span>
+              Designed by{' '}
+              <a 
+                href="https://jayeshbpatil.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-300 hover:text-white transition-colors underline underline-offset-4 decoration-neutral-700 hover:decoration-white"
+              >
+                Jayesh Patil
+              </a>
+            </span>
+            <span className="text-neutral-700">•</span>
+            <span>
+              Developed with{' '}
+              <a 
+                href="https://mahendranagpure.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-300 hover:text-white transition-colors underline underline-offset-4 decoration-neutral-700 hover:decoration-white"
+              >
+                Mahendra Nagpure
+              </a>
+            </span>
+          </div>
         </div>
 
         {/* Giant Pure White Brand Display Typography in crisp font-normal */}
