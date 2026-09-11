@@ -6,3 +6,5 @@ coverage/
 *.log
 .env*
 !.env.example
+/12963577_*.mp4
+
