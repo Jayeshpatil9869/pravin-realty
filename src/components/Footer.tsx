@@ -63,8 +63,8 @@ export function Footer() {
             <h4 className="text-sm font-medium text-white tracking-tight">Contact</h4>
             <div className="space-y-2 text-xs sm:text-sm text-neutral-400 font-normal">
               <p>
-                <a href="mailto:info@pravinrealty.com" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5" /> info@pravinrealty.com
+                <a href="mailto:kpravin2492@gmail.com" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5" /> kpravin2492@gmail.com
                 </a>
               </p>
               <p>

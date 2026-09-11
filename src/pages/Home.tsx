@@ -244,7 +244,7 @@ export function Home({ onOpenConsultation }: HomeProps) {
             <div className="relative w-full max-w-lg aspect-[4/4.5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
               <img 
                 src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=85" 
-                alt="Casavera Trusted Real Estate Consultation" 
+                alt="Pravin Realty Trusted Real Estate Consultation" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
