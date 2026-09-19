@@ -15,7 +15,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: 'Pravin K.',
     role: 'Founder & Principal Broker',
     bio: 'Over 12 years of specialized real estate experience in West Pune. Pravin has guided over 500+ families and corporations through high-value acquisitions and commercial leasing.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80',
+    image: '/leader-pravin.jpg',
     phone: '+91 97624 16737',
     email: 'info@pravinrealty.com',
     specialty: 'West Pune Luxury & Commercial'

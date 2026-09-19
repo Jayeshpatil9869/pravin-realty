@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SectionEyebrow } from '../components/Icons';
 import { CheckCircle2, Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
+import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
 
 export function Contact() {
   const [fullName, setFullName] = useState('');
@@ -20,13 +21,13 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-24 sm:pt-28 md:pt-36 pb-16 sm:pb-20 md:pb-28 text-left">
+    <div className="min-h-screen bg-white pt-24 sm:pt-28 md:pt-36 pb-16 sm:pb-20 md:pb-28 text-left overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16 space-y-12 sm:space-y-16">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-start">
           
           {/* Left Column: Form */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
+          <ScrollReveal variant="fade-right" duration={0.7} className="lg:col-span-6 space-y-5 sm:space-y-6">
             
             <div className="space-y-2">
               <SectionEyebrow label="GET IN TOUCH WITH US" />
@@ -136,11 +137,11 @@ export function Contact() {
               </form>
             )}
 
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Office Location & Quick Contact Cards */}
           <div className="lg:col-span-6 space-y-5 sm:space-y-6">
-            <div className="bg-[#FBFBFB] rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-xs space-y-5 sm:space-y-6">
+            <ScrollReveal variant="fade-left" duration={0.7} className="bg-[#FBFBFB] rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-xs space-y-5 sm:space-y-6">
               <div>
                 <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-medium text-neutral-500 block mb-1">
                   OUR CORPORATE HEADQUARTERS
@@ -214,10 +215,10 @@ export function Contact() {
                   <span>Connect on WhatsApp Instantly</span>
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Coverage Areas */}
-            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80">
+            <ScrollReveal variant="fade-up" delay={0.15} className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80">
               <h4 className="text-[11px] sm:text-xs font-normal uppercase tracking-wider text-neutral-500 mb-3">
                 Key Micro-Markets We Serve Across Pune
               </h4>
@@ -228,7 +229,7 @@ export function Contact() {
                   </span>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
         </div>

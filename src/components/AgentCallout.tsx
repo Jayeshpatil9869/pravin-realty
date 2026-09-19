@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, SectionEyebrow } from './Icons';
+import { ScrollReveal } from './ui/scroll-reveal';
 
 interface AgentCalloutProps {
   onOpenConsultation?: () => void;
@@ -7,11 +8,11 @@ interface AgentCalloutProps {
 
 export function AgentCallout({ onOpenConsultation }: AgentCalloutProps) {
   return (
-    <section className="px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 bg-white">
+    <section className="px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
         
         {/* Left Column Text */}
-        <div className="lg:col-span-6 space-y-4 sm:space-y-5 text-left">
+        <ScrollReveal variant="fade-right" duration={0.7} className="lg:col-span-6 space-y-4 sm:space-y-5 text-left">
           <SectionEyebrow label="TALK TO PRAVIN REALTY" />
 
           <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-normal text-[#121316] tracking-[-0.015em] leading-[1.2]">
@@ -45,15 +46,15 @@ export function AgentCallout({ onOpenConsultation }: AgentCalloutProps) {
               </Link>
             )}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Right Column Agent Image */}
         <div className="lg:col-span-6 flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
+          <ScrollReveal variant="scale-up" duration={0.7} className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
             <img 
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1000&q=85" 
-              alt="Pravin Realty Leadership" 
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+              src="/leader-pravin.jpg" 
+              alt="Pravin K. - Founder & Principal Broker of Pravin Realty" 
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
             
@@ -67,7 +68,7 @@ export function AgentCallout({ onOpenConsultation }: AgentCalloutProps) {
                 West Pune Expert
               </span>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
       </div>

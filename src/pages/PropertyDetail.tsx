@@ -7,6 +7,7 @@ import { AgentCallout } from '../components/AgentCallout';
 import { PropertyModal } from '../components/PropertyModal';
 import { ConsultModal } from '../components/ConsultModal';
 import { MapPin, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
 
 interface PropertyDetailProps {
   onOpenConsultation?: () => void;
@@ -17,7 +18,7 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
   const [isTourModalOpen, setIsTourModalOpen] = useState(false);
   const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
 
-  // Find property by slug, or fallback to the Birch Residence
+  // Find property by slug, or fallback to the first property
   const property: Property = PROPERTIES.find((p) => p.slug === slug) || PROPERTIES[0];
 
   useEffect(() => {
@@ -59,13 +60,13 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
   ];
 
   return (
-    <div className="min-h-screen pt-24 sm:pt-28 md:pt-36 space-y-12 sm:space-y-16 md:space-y-24 text-left">
+    <div className="min-h-screen pt-24 sm:pt-28 md:pt-36 space-y-12 sm:space-y-16 md:space-y-24 text-left overflow-x-hidden">
       
       {/* 1. TOP HEADER BAR: TITLE, LOCATION, METRICS */}
       <section className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
         
         {/* Breadcrumb / Back Link */}
-        <div className="mb-4 sm:mb-6">
+        <ScrollReveal variant="fade" className="mb-4 sm:mb-6">
           <Link 
             to="/properties" 
             className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-neutral-900 transition-colors font-normal"
@@ -73,11 +74,11 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to All Properties</span>
           </Link>
-        </div>
+        </ScrollReveal>
 
         <div className="space-y-5 sm:space-y-6">
           {/* Eyebrow & Title */}
-          <div className="space-y-2.5 sm:space-y-3">
+          <ScrollReveal variant="blur-up" className="space-y-2.5 sm:space-y-3">
             <SectionEyebrow label="PRAVIN REALTY EXCLUSIVE" />
 
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-[#121316] tracking-[-0.02em] leading-tight">
@@ -88,44 +89,44 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
               <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A15422] shrink-0" />
               <span>{property.location}</span>
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* 4 Metric Cards Row (Price, Bedrooms, Bathrooms, Sq Ft) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-1 sm:pt-2">
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+          <ScrollStaggerGroup staggerDelay={0.08} className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-1 sm:pt-2">
+            <ScrollStaggerItem variant="fade-up" className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
               <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 block font-normal">Pricing</span>
               <span className="text-base sm:text-xl md:text-2xl font-normal text-[#121316] mt-0.5 sm:mt-1 block truncate">
                 {property.formattedPrice}
               </span>
-            </div>
+            </ScrollStaggerItem>
 
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+            <ScrollStaggerItem variant="fade-up" className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
               <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 block font-normal">Configuration</span>
               <span className="text-base sm:text-xl md:text-2xl font-normal text-[#121316] mt-0.5 sm:mt-1 block truncate">
                 {typeof property.beds === 'number' ? `${property.beds} BHK` : property.beds}
               </span>
-            </div>
+            </ScrollStaggerItem>
 
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+            <ScrollStaggerItem variant="fade-up" className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
               <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 block font-normal">Bathrooms</span>
               <span className="text-base sm:text-xl md:text-2xl font-normal text-[#121316] mt-0.5 sm:mt-1 block truncate">
                 {property.baths}
               </span>
-            </div>
+            </ScrollStaggerItem>
 
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+            <ScrollStaggerItem variant="fade-up" className="bg-white border border-neutral-200/80 rounded-2xl p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
               <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 block font-normal">Carpet Area</span>
               <span className="text-base sm:text-xl md:text-2xl font-normal text-[#121316] mt-0.5 sm:mt-1 block truncate">
                 {property.sqft}
               </span>
-            </div>
-          </div>
+            </ScrollStaggerItem>
+          </ScrollStaggerGroup>
         </div>
       </section>
 
       {/* 2. MAIN ARCHITECTURAL HERO IMAGE */}
       <section className="px-3 sm:px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="relative aspect-[16/10] sm:aspect-[2.1/1] w-full rounded-3xl md:rounded-[36px] overflow-hidden shadow-sm border border-neutral-100 bg-neutral-100">
+        <ScrollReveal variant="scale-up" duration={0.7} className="relative aspect-[16/10] sm:aspect-[2.1/1] w-full rounded-3xl md:rounded-[36px] overflow-hidden shadow-sm border border-neutral-100 bg-neutral-100">
           <img 
             src={property.image} 
             alt={property.title} 
@@ -134,14 +135,14 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
           <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/95 backdrop-blur-md text-[#121316] text-[11px] sm:text-xs font-normal px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-md max-w-[80%] truncate">
             {property.category} • MahaRERA #{property.reraId || 'P52100049281'}
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 3. OVERVIEW & PROPERTY HIGHLIGHTS */}
       <section className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto space-y-8 sm:space-y-12">
         
         {/* Overview Statement */}
-        <div className="space-y-3 sm:space-y-4 max-w-4xl">
+        <ScrollReveal variant="fade-up" className="space-y-3 sm:space-y-4 max-w-4xl">
           <SectionEyebrow label="PROPERTY OVERVIEW" />
 
           <h2 className="text-xl sm:text-3xl lg:text-[42px] font-normal text-[#121316] tracking-[-0.015em] leading-[1.25]">
@@ -151,45 +152,47 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
           <p className="text-neutral-600 text-xs sm:text-sm md:text-base leading-relaxed font-normal pt-1 sm:pt-2">
             {property.description}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Property Highlights Grid */}
-        <div className="space-y-4 sm:space-y-5 pt-4 border-t border-neutral-200/80">
+        <ScrollReveal variant="fade-up" className="space-y-4 sm:space-y-5 pt-4 border-t border-neutral-200/80">
           <h3 className="text-lg sm:text-2xl font-normal text-[#121316]">
             Key Specifications
           </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl">
+          <ScrollStaggerGroup staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl">
             {highlights.map((item, idx) => (
-              <div 
+              <ScrollStaggerItem 
                 key={idx} 
+                variant="fade-up"
                 className="flex items-center gap-3 bg-white p-3 sm:p-3.5 rounded-2xl border border-neutral-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
               >
                 <CheckCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="text-xs sm:text-sm font-normal text-[#121316]">{item}</span>
-              </div>
+              </ScrollStaggerItem>
             ))}
-          </div>
-        </div>
+          </ScrollStaggerGroup>
+        </ScrollReveal>
 
         {/* Custom Finishes List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+        <ScrollReveal variant="fade-up" className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
           {property.features.map((feat, idx) => (
             <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-600 font-normal">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A15422] shrink-0 mt-1.5" />
               <span>{feat}</span>
             </div>
           ))}
-        </div>
+        </ScrollReveal>
 
       </section>
 
       {/* 4. 4-PHOTO INTERIOR GALLERY */}
       <section className="px-3 sm:px-4 md:px-8 max-w-7xl mx-auto space-y-4 sm:space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <ScrollStaggerGroup staggerDelay={0.1} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {interiorGallery.map((item, idx) => (
-            <div 
+            <ScrollStaggerItem 
               key={idx} 
+              variant="fade-up"
               className="group aspect-[16/10] rounded-3xl overflow-hidden shadow-sm border border-neutral-100 bg-neutral-100 relative"
             >
               <img 
@@ -201,16 +204,16 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
               <div className="absolute bottom-3.5 sm:bottom-4 left-3.5 sm:left-4 text-white text-xs font-normal opacity-0 group-hover:opacity-100 transition-opacity">
                 {item.title}
               </div>
-            </div>
+            </ScrollStaggerItem>
           ))}
-        </div>
+        </ScrollStaggerGroup>
       </section>
 
       {/* 5. NEIGHBORHOOD & MAP LOCATION */}
       <section className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto space-y-8 sm:space-y-12">
         
         {/* Neighborhood Walk Times */}
-        <div className="space-y-4 sm:space-y-6 max-w-3xl">
+        <ScrollReveal variant="fade-up" className="space-y-4 sm:space-y-6 max-w-3xl">
           <h3 className="text-lg sm:text-2xl font-normal text-[#121316]">
             Neighborhood Connectivity
           </h3>
@@ -226,10 +229,10 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Map Location Card */}
-        <div className="space-y-4 sm:space-y-5">
+        <ScrollReveal variant="scale-up" duration={0.7} className="space-y-4 sm:space-y-5">
           <h3 className="text-lg sm:text-2xl font-normal text-[#121316]">
             Location & Vicinity
           </h3>
@@ -262,13 +265,13 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
       </section>
 
       {/* 6. INTERESTED IN THIS PROPERTY? AGENT INQUIRY BOX */}
       <section className="px-3 sm:px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl md:rounded-[36px] p-5 sm:p-8 md:p-10 border border-neutral-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.03)] space-y-5 sm:space-y-6 text-left">
+        <ScrollReveal variant="fade-up" duration={0.7} className="bg-white rounded-3xl md:rounded-[36px] p-5 sm:p-8 md:p-10 border border-neutral-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.03)] space-y-5 sm:space-y-6 text-left">
           <div className="max-w-xl space-y-1.5 sm:space-y-2">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-normal text-[#121316]">
               Interested in this property?
@@ -327,7 +330,7 @@ export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
             <ShieldCheck className="w-4 h-4 text-[#A15422] shrink-0" />
             <span>Pravin Realty Certified Advisory. 100% direct developer mandate with title verification.</span>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 7. GRAND CTA BANNER */}

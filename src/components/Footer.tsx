@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
 import { PravinLogo } from './PravinLogo';
+import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from './ui/scroll-reveal';
 
 export function Footer() {
   return (
@@ -8,10 +9,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         
         {/* Grid: 2-column on mobile, 12-column on desktop */}
-        <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-10 lg:gap-8 mb-12 sm:mb-16 md:mb-20">
+        <ScrollStaggerGroup staggerDelay={0.08} className="grid grid-cols-2 lg:grid-cols-12 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-10 lg:gap-8 mb-12 sm:mb-16 md:mb-20">
           
           {/* Top Brand Info: Full width on mobile, 4-col on desktop */}
-          <div className="col-span-2 lg:col-span-4 space-y-4 pr-0 lg:pr-6 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <ScrollStaggerItem variant="fade-up" className="col-span-2 lg:col-span-4 space-y-4 pr-0 lg:pr-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <Link to="/" className="inline-block">
               <PravinLogo variant="light" textSize="text-lg sm:text-xl" />
             </Link>
@@ -22,10 +23,10 @@ export function Footer() {
               <MapPin className="w-4 h-4 text-neutral-300 shrink-0" />
               <span>Office 1011, 10th Floor, Nandan Probiz, Balewadi, Pune - 411045</span>
             </div>
-          </div>
+          </ScrollStaggerItem>
 
           {/* Section 1: Column 1 on mobile (Pages) */}
-          <div className="col-span-1 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <ScrollStaggerItem variant="fade-up" className="col-span-1 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Pages</h4>
             <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-neutral-400 font-normal">
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
@@ -34,10 +35,10 @@ export function Footer() {
               <li><Link to="/blog" className="hover:text-white transition-colors">Market Insights</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Talk to an Agent</Link></li>
             </ul>
-          </div>
+          </ScrollStaggerItem>
 
           {/* Section 2: Column 2 on mobile (Specializations) */}
-          <div className="col-span-1 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <ScrollStaggerItem variant="fade-up" className="col-span-1 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Specializations</h4>
             <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-neutral-400 font-normal">
               <li><Link to="/properties" className="hover:text-white transition-colors">Baner Luxury Homes</Link></li>
@@ -45,10 +46,10 @@ export function Footer() {
               <li><Link to="/properties" className="hover:text-white transition-colors">Commercial Offices</Link></li>
               <li><Link to="/properties" className="hover:text-white transition-colors">Plot & Land Deals</Link></li>
             </ul>
-          </div>
+          </ScrollStaggerItem>
 
           {/* Section 3 (Bottom on mobile): Trust & Legal */}
-          <div className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <ScrollStaggerItem variant="fade-up" className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Trust & Legal</h4>
             <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-neutral-400 font-normal">
               <li><span className="text-neutral-300">MahaRERA Registered</span></li>
@@ -56,10 +57,10 @@ export function Footer() {
               <li><Link to="/about" className="hover:text-white transition-colors">Title Search Reports</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Bank Loan Advisory</Link></li>
             </ul>
-          </div>
+          </ScrollStaggerItem>
 
           {/* Section 3 (Bottom on mobile): Contact & Social */}
-          <div className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <ScrollStaggerItem variant="fade-up" className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Contact</h4>
             <div className="space-y-2 text-xs sm:text-sm text-neutral-400 font-normal flex flex-col items-center lg:items-start">
               <p>
@@ -113,12 +114,12 @@ export function Footer() {
                 </a>
               </div>
             </div>
-          </div>
+          </ScrollStaggerItem>
 
-        </div>
+        </ScrollStaggerGroup>
 
         {/* Bottom Meta & Credit Row */}
-        <div className="flex flex-col lg:flex-row items-center justify-between text-xs text-neutral-400 font-normal pb-6 sm:pb-10 border-t border-neutral-900 pt-6 gap-3 sm:gap-4 text-center lg:text-left">
+        <ScrollReveal variant="fade-up" className="flex flex-col lg:flex-row items-center justify-between text-xs text-neutral-400 font-normal pb-6 sm:pb-10 border-t border-neutral-900 pt-6 gap-3 sm:gap-4 text-center lg:text-left">
           <p>© {new Date().getFullYear()} Pravin Realty. All Rights Reserved.</p>
           
           <div className="flex flex-wrap items-center justify-center lg:justify-end gap-x-4 sm:gap-x-5 gap-y-1.5 text-[11px] sm:text-xs text-neutral-400">
@@ -158,14 +159,14 @@ export function Footer() {
               </a>
             </span>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Giant Pure White Brand Display Typography in crisp font-normal */}
-        <div className="w-full select-none pointer-events-none overflow-hidden text-center">
-          <span className="text-[12vw] sm:text-[11vw] font-normal tracking-[-0.03em] text-white/90 leading-none block font-sans whitespace-nowrap">
+        <ScrollReveal variant="blur-up" duration={0.9} className="w-full select-none pointer-events-none overflow-hidden text-center">
+          <span className="text-[16vw] sm:text-[16vw] font-normal tracking-[-0.03em] text-white/90 leading-none block font-sans whitespace-nowrap">
             Pravin Realty
           </span>
-        </div>
+        </ScrollReveal>
 
       </div>
     </footer>

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon } from './Icons';
 import { Play, Pause, Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { ScrollReveal } from './ui/scroll-reveal';
 
 export function GrandCtaBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -29,7 +30,7 @@ export function GrandCtaBanner() {
 
   return (
     <section className="px-3 sm:px-4 md:px-8 py-8 sm:py-10 md:py-16">
-      <div className="max-w-7xl mx-auto relative rounded-3xl md:rounded-[38px] overflow-hidden min-h-[360px] sm:min-h-[420px] md:min-h-[480px] flex items-center justify-center text-center p-5 sm:p-8 md:p-14 lg:p-16 shadow-2xl bg-[#0F1014] border border-white/10 group">
+      <ScrollReveal variant="scale-up" duration={0.75} className="max-w-7xl mx-auto relative rounded-3xl md:rounded-[38px] overflow-hidden min-h-[360px] sm:min-h-[420px] md:min-h-[480px] flex items-center justify-center text-center p-5 sm:p-8 md:p-14 lg:p-16 shadow-2xl bg-[#0F1014] border border-white/10 group">
         
         {/* Background Real Estate Video */}
         <video
@@ -112,7 +113,7 @@ export function GrandCtaBanner() {
 
         </div>
 
-      </div>
+      </ScrollReveal>
     </section>
   );
 }

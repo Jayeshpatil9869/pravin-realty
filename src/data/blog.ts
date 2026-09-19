@@ -28,7 +28,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: {
       name: 'Pravin K.',
       role: 'Principal Advisor & Founder',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: ''
     },
     content: [
       'Deciding whether to rent or buy a home in Pune depends on your career horizons, financial stability, and long-term investment goals.',
@@ -68,7 +68,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: {
       name: 'Pravin K.',
       role: 'Principal Advisor & Founder',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: ''
     },
     content: [
       'Pune has consistently ranked as one of India’s most livable metropolitan cities, driven by an expanding IT/ITeS sector, automotive manufacturing, and premier academic hubs.',

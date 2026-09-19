@@ -72,7 +72,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   },
   {
@@ -115,7 +115,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   },
   {
@@ -197,7 +197,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   },
   {
@@ -277,7 +277,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   },
   {
@@ -316,7 +316,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   },
   {
@@ -394,7 +394,7 @@ export const PROPERTIES: Property[] = [
       role: 'Principal Advisor & Founder',
       phone: '+91 97624 16737',
       email: 'kpravin2492@gmail.com',
-      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
+      avatar: '/leader-pravin.jpg'
     }
   }
 ];

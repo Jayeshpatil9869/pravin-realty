@@ -8,12 +8,85 @@ import { PropertyModal } from '../components/PropertyModal';
 import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
 import { Star, ArrowRight } from 'lucide-react';
+import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+
+import { motion, Variants } from 'framer-motion';
 
 interface HomeProps {
   onOpenConsultation?: () => void;
+  isRevealFinished?: boolean;
 }
 
-export function Home({ onOpenConsultation }: HomeProps) {
+const heroContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0,
+    },
+  },
+};
+
+const heroTitleVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.22,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const heroSubtitleVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.22,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const heroButtonVariants: Variants = {
+  hidden: { opacity: 0, y: 6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.22,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const heroScrollVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      delay: 0.05,
+      ease: 'easeOut',
+    },
+  },
+};
+
+const heroBgVariants: Variants = {
+  hidden: { scale: 1 },
+  visible: {
+    scale: 1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
+
+export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps) {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   const featuredProperties = PROPERTIES.slice(0, 2);
@@ -47,15 +120,18 @@ export function Home({ onOpenConsultation }: HomeProps) {
   ];
 
   return (
-    <div className="min-h-screen space-y-12 sm:space-y-16 md:space-y-24">
+    <div className="min-h-screen space-y-12 sm:space-y-16 md:space-y-24 overflow-x-hidden">
       
       {/* 1. HERO SECTION - FULL WINDOW WITH BALANCED GRADIENT */}
       <section className="relative w-full h-[100svh] min-h-[560px] sm:min-h-[640px] md:min-h-[680px] flex items-center sm:items-end justify-center sm:justify-start pt-16 pb-8 sm:pt-0 sm:pb-20 md:pb-24 lg:pb-28 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden">
         {/* Full Window Background Image */}
-        <img 
+        <motion.img 
           src="/hero-villa.png" 
           alt="Pravin Realty Luxury Properties Pune" 
-          className="absolute inset-0 w-full h-full object-cover object-center scale-100"
+          initial="hidden"
+          animate={isRevealFinished ? "visible" : "hidden"}
+          variants={heroBgVariants}
+          className="absolute inset-0 w-full h-full object-cover object-center scale-100 origin-center"
         />
 
         {/* Gradient: balanced overlay on mobile for centered text, bottom gradient on desktop */}
@@ -64,17 +140,31 @@ export function Home({ onOpenConsultation }: HomeProps) {
         {/* Hero Content Row: Centered on mobile, aligned on desktop */}
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-0 sm:mb-2 text-center sm:text-left">
           
-          {/* Title, Subtitle, and Buttons - centered vertically & horizontally on mobile */}
-          <div className="max-w-2xl text-white space-y-4 sm:space-y-5 flex flex-col items-center sm:items-start mx-auto sm:mx-0">
-            <h1 className="text-[clamp(36px,9.5vw,46px)] sm:text-5xl lg:text-[62px] font-normal tracking-[-0.025em] leading-[1.1] text-white text-center sm:text-left">
+          {/* Title, Subtitle, and Buttons */}
+          <motion.div 
+            initial="hidden"
+            animate={isRevealFinished ? "visible" : "hidden"}
+            variants={heroContainerVariants}
+            className="max-w-2xl text-white space-y-4 sm:space-y-5 flex flex-col items-center sm:items-start mx-auto sm:mx-0"
+          >
+            <motion.h1 
+              variants={heroTitleVariants}
+              className="text-[clamp(36px,9.5vw,46px)] sm:text-5xl lg:text-[62px] font-normal tracking-[-0.025em] leading-[1.1] text-white text-center sm:text-left"
+            >
               Find the Right Property. <br className="hidden sm:inline" />Make the Right Move.
-            </h1>
+            </motion.h1>
 
-            <p className="text-neutral-100 text-[16px] sm:text-base font-normal max-w-sm sm:max-w-lg leading-relaxed text-center sm:text-left mx-auto sm:mx-0">
+            <motion.p 
+              variants={heroSubtitleVariants}
+              className="text-neutral-100 text-[16px] sm:text-base font-normal max-w-sm sm:max-w-lg leading-relaxed text-center sm:text-left mx-auto sm:mx-0"
+            >
               Your trusted partner for residential, commercial & luxury properties in Baner, Balewadi & West Pune.
-            </p>
+            </motion.p>
 
-            <div className="pt-2 sm:pt-3 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-3.5 w-auto flex-nowrap">
+            <motion.div 
+              variants={heroButtonVariants}
+              className="pt-2 sm:pt-3 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-3.5 w-auto flex-nowrap"
+            >
               <Link 
                 to="/properties" 
                 className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 md:px-6 rounded-full inline-flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
@@ -93,15 +183,20 @@ export function Home({ onOpenConsultation }: HomeProps) {
                   Request Callback
                 </button>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right: [SCROLL] indicator */}
-          <div className="hidden md:flex items-center pb-3">
-            <span className="text-xs font-normal tracking-widest text-neutral-400 select-none">
+          <motion.div 
+            initial="hidden"
+            animate={isRevealFinished ? "visible" : "hidden"}
+            variants={heroScrollVariants}
+            className="hidden md:flex items-center pb-3"
+          >
+            <span className="text-xs font-normal tracking-widest text-neutral-400 select-none animate-pulse">
               [SCROLL]
             </span>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -111,7 +206,7 @@ export function Home({ onOpenConsultation }: HomeProps) {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
           
           {/* Left: Preview Card */}
-          <div className="lg:col-span-4">
+          <ScrollReveal variant="fade-right" duration={0.7} className="lg:col-span-4">
             <div className="relative rounded-3xl overflow-hidden shadow-sm border border-neutral-100 aspect-[4/3] group">
               <img 
                 src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=900&q=80" 
@@ -124,10 +219,10 @@ export function Home({ onOpenConsultation }: HomeProps) {
                 <p className="text-xs sm:text-sm font-normal">Nandan Probiz, 10th Floor, West Pune</p>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right: Statement & Numbers */}
-          <div className="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
+          <ScrollReveal variant="fade-left" duration={0.7} className="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
             <SectionEyebrow label="ABOUT PRAVIN REALTY" />
 
             <h2 className="text-xl sm:text-3xl lg:text-[34px] font-normal text-[#121316] tracking-[-0.015em] leading-[1.3]">
@@ -139,21 +234,21 @@ export function Home({ onOpenConsultation }: HomeProps) {
             </p>
 
             {/* Numbers Row */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3 sm:pt-4 border-t border-neutral-200/80">
-              <div>
+            <ScrollStaggerGroup staggerDelay={0.12} className="grid grid-cols-3 gap-2 sm:gap-6 pt-3 sm:pt-4 border-t border-neutral-200/80">
+              <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">12+</span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Years in Pune</span>
-              </div>
-              <div>
+              </ScrollStaggerItem>
+              <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">500+</span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Properties Closed</span>
-              </div>
-              <div>
+              </ScrollStaggerItem>
+              <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">98%</span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Client Satisfaction</span>
-              </div>
-            </div>
-          </div>
+              </ScrollStaggerItem>
+            </ScrollStaggerGroup>
+          </ScrollReveal>
 
         </div>
       </section>
@@ -163,7 +258,7 @@ export function Home({ onOpenConsultation }: HomeProps) {
         <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8 text-left">
           
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <ScrollReveal variant="fade-up" className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <div className="mb-2">
                 <SectionEyebrow label="FEATURED PUNE LISTINGS" />
@@ -183,26 +278,30 @@ export function Home({ onOpenConsultation }: HomeProps) {
               <span>Explore All Properties</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-          </div>
+          </ScrollReveal>
 
           {/* Featured Property Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 w-full">
+          <ScrollStaggerGroup staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 w-full">
             {featuredProperties.map((property) => (
-              <PropertyCard 
-                key={property.id}
-                property={property} 
-                onSelect={(p) => setSelectedProperty(p)} 
-              />
+              <ScrollStaggerItem key={property.id} variant="fade-up" duration={0.65}>
+                <PropertyCard 
+                  property={property} 
+                  onSelect={(p) => setSelectedProperty(p)} 
+                />
+              </ScrollStaggerItem>
             ))}
-          </div>
+          </ScrollStaggerGroup>
 
         </div>
       </section>
 
       {/* 4. TRUST & VALUE PROPOSITION ("Because The Right Home Begins with Trust") */}
       <section className="px-3 sm:px-4 md:px-8 py-2 sm:py-4">
-        <div className="max-w-7xl mx-auto bg-[#FAF9F6] rounded-3xl md:rounded-[36px] p-5 sm:p-8 md:p-14 border border-neutral-200/70 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center text-left">
-          
+        <ScrollReveal 
+          variant="fade-up" 
+          duration={0.7}
+          className="max-w-7xl mx-auto bg-[#FAF9F6] rounded-3xl md:rounded-[36px] p-5 sm:p-8 md:p-14 border border-neutral-200/70 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center text-left"
+        >
           {/* Left: Text & Checkpoints */}
           <div className="lg:col-span-6 space-y-4 sm:space-y-6">
             <SectionEyebrow label="WHY CHOOSE PRAVIN REALTY" />
@@ -216,14 +315,14 @@ export function Home({ onOpenConsultation }: HomeProps) {
             </p>
 
             {/* Checklist */}
-            <div className="space-y-2.5 sm:space-y-3.5 pt-1 sm:pt-2">
+            <ScrollStaggerGroup staggerDelay={0.08} className="space-y-2.5 sm:space-y-3.5 pt-1 sm:pt-2">
               {trustFeatures.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2.5 sm:gap-3">
+                <ScrollStaggerItem key={idx} variant="fade-right" className="flex items-center gap-2.5 sm:gap-3">
                   <CheckCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                   <span className="text-xs sm:text-sm md:text-[15px] font-normal text-[#121316]">{item}</span>
-                </div>
+                </ScrollStaggerItem>
               ))}
-            </div>
+            </ScrollStaggerGroup>
 
             <div className="pt-2 sm:pt-3">
               <Link 
@@ -240,9 +339,9 @@ export function Home({ onOpenConsultation }: HomeProps) {
 
           {/* Right: Advisor & Clients Photo */}
           <div className="lg:col-span-6 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-lg aspect-[4/4.5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
+            <ScrollReveal variant="scale-up" duration={0.7} className="relative w-full max-w-lg aspect-[4/4.5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
               <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=85" 
+                src="" 
                 alt="Pravin Realty Trusted Real Estate Consultation" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -251,17 +350,16 @@ export function Home({ onOpenConsultation }: HomeProps) {
                 <p className="text-[10px] sm:text-xs font-normal uppercase tracking-wider text-[#FDE8D7]">Client-First Commitment</p>
                 <p className="text-xs sm:text-sm font-normal">Trusted Guidance. Better Property Decisions.</p>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
-
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 5. PROCESS SECTION ("A Seamless Path to Your New Home") */}
       <section className="px-4 sm:px-6 md:px-8">
         <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
           
-          <div className="text-center max-w-2xl mx-auto space-y-2">
+          <ScrollReveal variant="fade-up" className="text-center max-w-2xl mx-auto space-y-2">
             <SectionEyebrow label="OUR PROCESS" />
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#121316] tracking-[-0.015em]">
               A Seamless Path to Your New Property
@@ -269,13 +367,14 @@ export function Home({ onOpenConsultation }: HomeProps) {
             <p className="text-neutral-500 text-xs sm:text-sm font-normal">
               How we guide you from initial consultation to keys and registration.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* 3 Process Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
+          <ScrollStaggerGroup staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
             {processSteps.map((step, idx) => (
-              <div 
+              <ScrollStaggerItem 
                 key={idx} 
+                variant="fade-up"
                 className="bg-white rounded-3xl p-5 sm:p-6 border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-md transition-all flex flex-col justify-between space-y-5 sm:space-y-6"
               >
                 <div className="space-y-2.5 sm:space-y-3.5">
@@ -293,9 +392,9 @@ export function Home({ onOpenConsultation }: HomeProps) {
                 <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden bg-neutral-100">
                   <img src={step.image} alt={step.title} className="w-full h-full object-cover img-zoom" />
                 </div>
-              </div>
+              </ScrollStaggerItem>
             ))}
-          </div>
+          </ScrollStaggerGroup>
 
         </div>
       </section>
@@ -304,7 +403,7 @@ export function Home({ onOpenConsultation }: HomeProps) {
       <section className="px-4 sm:px-6 md:px-8">
         <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10 text-left">
           
-          <div className="space-y-2">
+          <ScrollReveal variant="fade-up" className="space-y-2">
             <SectionEyebrow label="CLIENT STORIES" />
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#121316] tracking-[-0.015em]">
               Trusted by Homeowners & Businesses Across Pune
@@ -312,13 +411,14 @@ export function Home({ onOpenConsultation }: HomeProps) {
             <p className="text-neutral-500 text-xs sm:text-sm font-normal max-w-xl">
               Real experiences from clients who bought, leased, or invested through Pravin Realty.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* 3 Review Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <ScrollStaggerGroup staggerDelay={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {TESTIMONIALS.map((t) => (
-              <div 
+              <ScrollStaggerItem 
                 key={t.id} 
+                variant="fade-up"
                 className="bg-white rounded-3xl p-5 sm:p-7 border border-neutral-200/70 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between space-y-5 sm:space-y-6"
               >
                 {/* Stars */}
@@ -345,9 +445,9 @@ export function Home({ onOpenConsultation }: HomeProps) {
                     <p className="text-[10px] sm:text-[11px] text-neutral-400 font-normal">{t.role}</p>
                   </div>
                 </div>
-              </div>
+              </ScrollStaggerItem>
             ))}
-          </div>
+          </ScrollStaggerGroup>
 
         </div>
       </section>

@@ -13,6 +13,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ConsultModal } from './components/ConsultModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { PageRevealAnimation } from './components/PageRevealAnimation';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,6 +58,7 @@ function ScrollToTop() {
 
 export default function App() {
   const [isConsultOpen, setIsConsultOpen] = useState(false);
+  const [showReveal, setShowReveal] = useState(true);
 
   useEffect(() => {
     // Initialize buttery Lenis smooth scroll
@@ -73,6 +75,10 @@ export default function App() {
     (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance = lenis;
     lenis.on('scroll', ScrollTrigger.update);
 
+    if (showReveal) {
+      lenis.stop();
+    }
+
     const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -85,17 +91,30 @@ export default function App() {
       lenis.destroy();
       (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance = undefined;
     };
-  }, []);
+  }, [showReveal]);
+
+  const handleRevealComplete = () => {
+    setShowReveal(false);
+    const lenis = (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance;
+    if (lenis) {
+      lenis.start();
+    }
+  };
 
   return (
     <BrowserRouter>
+      {/* 1. Page-Reveal Intro Animation on Visit */}
+      {showReveal && (
+        <PageRevealAnimation onComplete={handleRevealComplete} />
+      )}
+
       <ScrollToTop />
       <div className="min-h-screen bg-[#FBFBFB] text-[#121316] flex flex-col font-sans selection:bg-[#FDE8D7] selection:text-[#9A3412]">
         <Header />
         
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} />} />
+            <Route path="/" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} isRevealFinished={!showReveal} />} />
             <Route path="/properties" element={<Properties onOpenConsultation={() => setIsConsultOpen(true)} />} />
             <Route path="/properties/:slug" element={<PropertyDetail onOpenConsultation={() => setIsConsultOpen(true)} />} />
             <Route path="/about" element={<About onOpenConsultation={() => setIsConsultOpen(true)} />} />
@@ -103,7 +122,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/talk-to-agent" element={<Contact />} />
             {/* Catch-all fallback */}
-            <Route path="*" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} />} />
+            <Route path="*" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} isRevealFinished={!showReveal} />} />
           </Routes>
         </main>
 
