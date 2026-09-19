@@ -124,8 +124,8 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
   return (
     <div className="min-h-screen space-y-12 sm:space-y-16 md:space-y-24 overflow-x-hidden">
       
-      {/* 1. HERO SECTION - FULL WINDOW WITH BALANCED GRADIENT */}
-      <section className="relative w-full h-[100svh] min-h-[560px] sm:min-h-[640px] md:min-h-[680px] flex items-center sm:items-end justify-center sm:justify-start pt-16 pb-8 sm:pt-0 sm:pb-20 md:pb-24 lg:pb-28 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden">
+      {/* 1. HERO SECTION - POSITIONED IN UPPER-MID LEFT CORRESPONDING TO SUNSET SKY */}
+      <section className="relative w-full h-[100svh] min-h-[600px] flex items-center justify-start pt-20 sm:pt-24 md:pt-28 pb-8 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden">
         {/* Full Window Background Image */}
         <motion.img 
           src="/hero-villa.png" 
@@ -136,41 +136,41 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
           className="absolute inset-0 w-full h-full object-cover object-center scale-100 origin-center"
         />
 
-        {/* Gradient: balanced overlay on mobile for centered text, bottom gradient on desktop */}
-        <div className="absolute inset-x-0 bottom-0 h-full sm:h-[70%] md:h-[62%] bg-gradient-to-t from-black/90 via-black/55 to-black/35 sm:from-black/95 sm:via-black/55 sm:to-transparent pointer-events-none" />
+        {/* Bottom Gradient Overlay */}
+        <div className="absolute inset-x-0 bottom-0 h-[50%] sm:h-[55%] md:h-[60%] bg-gradient-to-t from-black/90 via-black/45 to-transparent pointer-events-none" />
 
-        {/* Hero Content Row: Centered on mobile, aligned on desktop */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-0 sm:mb-2 text-center sm:text-left">
+        {/* Hero Content: Positioned cleanly in the left quadrant above the cantilever pool slab */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 text-left">
           
           {/* Title, Subtitle, and Buttons */}
           <motion.div 
             initial="hidden"
             animate={isRevealFinished ? "visible" : "hidden"}
             variants={heroContainerVariants}
-            className="max-w-2xl text-white space-y-4 sm:space-y-5 flex flex-col items-center sm:items-start mx-auto sm:mx-0"
+            className="max-w-xl lg:max-w-[540px] text-white space-y-4 sm:space-y-5 flex flex-col items-start text-left"
           >
             <motion.h1 
               variants={heroTitleVariants}
-              className="text-[clamp(36px,9.5vw,46px)] sm:text-5xl lg:text-[62px] font-normal tracking-[-0.025em] leading-[1.1] text-white text-center sm:text-left"
+              className="text-[clamp(34px,5.2vw,54px)] lg:text-[56px] font-normal tracking-[-0.03em] leading-[1.08] text-white [text-shadow:_0_2px_12px_rgba(0,0,0,0.5)] text-left"
             >
               Find the Right Property. <br className="hidden sm:inline" />Make the Right Move.
             </motion.h1>
 
             <motion.p 
               variants={heroSubtitleVariants}
-              className="text-neutral-100 text-[16px] sm:text-base font-normal max-w-sm sm:max-w-lg leading-relaxed text-center sm:text-left mx-auto sm:mx-0"
+              className="text-neutral-100 text-[15px] sm:text-base font-normal max-w-md lg:max-w-lg leading-relaxed text-left [text-shadow:_0_1px_8px_rgba(0,0,0,0.5)]"
             >
               Your trusted partner for residential, commercial & luxury properties in Baner, Balewadi & West Pune.
             </motion.p>
 
             <motion.div 
               variants={heroButtonVariants}
-              className="pt-2 sm:pt-3 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-3.5 w-auto flex-nowrap"
+              className="pt-2 sm:pt-3 flex flex-row items-center justify-start gap-2.5 sm:gap-3.5 w-auto flex-nowrap"
             >
               <Magnetic strength={0.2}>
                 <Link 
                   to="/properties" 
-                  className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 md:px-6 rounded-full inline-flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
+                  className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-4 sm:px-6 rounded-full inline-flex items-center justify-center gap-2 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
                 >
                   <span>Explore Properties</span>
                   <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#121316] text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform shrink-0">
@@ -183,7 +183,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
                 <Magnetic strength={0.2}>
                   <button
                     onClick={onOpenConsultation}
-                    className="bg-white/15 backdrop-blur-md hover:bg-white/25 text-white border border-white/30 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 rounded-full transition-all duration-300 text-center cursor-pointer whitespace-nowrap active:scale-95"
+                    className="bg-black/30 hover:bg-black/45 text-white border border-white/35 backdrop-blur-md font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-4 sm:px-5 rounded-full transition-all duration-300 text-center cursor-pointer whitespace-nowrap active:scale-95"
                   >
                     Request Callback
                   </button>
@@ -192,19 +192,19 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
             </motion.div>
           </motion.div>
 
-          {/* Right: [SCROLL] indicator */}
-          <motion.div 
-            initial="hidden"
-            animate={isRevealFinished ? "visible" : "hidden"}
-            variants={heroScrollVariants}
-            className="hidden md:flex items-center pb-3"
-          >
-            <span className="text-xs font-normal tracking-widest text-neutral-400 select-none animate-pulse">
-              [SCROLL]
-            </span>
-          </motion.div>
-
         </div>
+
+        {/* Bottom Right: [SCROLL] indicator */}
+        <motion.div 
+          initial="hidden"
+          animate={isRevealFinished ? "visible" : "hidden"}
+          variants={heroScrollVariants}
+          className="hidden md:flex items-center absolute bottom-8 right-12 z-10"
+        >
+          <span className="text-xs font-normal tracking-widest text-neutral-400/80 select-none animate-pulse">
+            [SCROLL]
+          </span>
+        </motion.div>
       </section>
 
       {/* 2. STATS & WHO WE ARE SECTION */}

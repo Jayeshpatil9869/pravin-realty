@@ -46,8 +46,8 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <div 
           ref={imageRef}
+          style={{ backgroundImage: 'url(/hero-villa.png)' }}
           className="w-full h-[120%] -top-[10%] relative bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop)' }}
         >
           <div className="absolute inset-0 bg-black/30" />
         </div>
