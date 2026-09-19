@@ -92,7 +92,11 @@ export function Blog({ onOpenConsultation }: BlogProps) {
       <AgentCallout onOpenConsultation={onOpenConsultation} />
 
       {/* Blog Article Reader Modal */}
-      <BlogModal post={selectedPost} onClose={() => setSelectedPost(null)} />
+      <BlogModal 
+        post={selectedPost} 
+        onClose={() => setSelectedPost(null)} 
+        onOpenConsultation={onOpenConsultation}
+      />
 
     </div>
   );

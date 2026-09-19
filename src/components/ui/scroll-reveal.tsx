@@ -27,10 +27,10 @@ export function ScrollReveal({
   children,
   variant = 'fade-up',
   delay = 0,
-  duration = 0.65,
-  distance = 30,
+  duration = 0.55,
+  distance = 24,
   once = true,
-  amount = 0.15,
+  amount = 0.1,
   className = '',
   as = 'div',
   ...props
@@ -46,9 +46,9 @@ export function ScrollReveal({
       case 'fade-right':
         return { opacity: 0, x: -distance };
       case 'blur-up':
-        return { opacity: 0, y: distance * 0.75, filter: 'blur(8px)' };
+        return { opacity: 0, y: distance * 0.75 };
       case 'scale-up':
-        return { opacity: 0, scale: 0.94 };
+        return { opacity: 0, scale: 0.96 };
       case 'fade':
       default:
         return { opacity: 0 };
@@ -58,7 +58,7 @@ export function ScrollReveal({
   const getAnimate = () => {
     switch (variant) {
       case 'blur-up':
-        return { opacity: 1, y: 0, filter: 'blur(0px)' };
+        return { opacity: 1, y: 0 };
       case 'scale-up':
         return { opacity: 1, scale: 1 };
       case 'fade-left':
@@ -81,8 +81,9 @@ export function ScrollReveal({
       transition={{
         duration,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.16, 1, 0.3, 1],
       }}
+      style={{ willChange: 'opacity, transform' }}
       className={cn(className)}
       {...props}
     >
@@ -118,10 +119,10 @@ const staggerContainerVariants: Variants = {
 
 export function ScrollStaggerGroup({
   children,
-  staggerDelay = 0.1,
+  staggerDelay = 0.08,
   delayChildren = 0,
   once = true,
-  amount = 0.1,
+  amount = 0.08,
   className = '',
   as = 'div',
   ...props
@@ -155,8 +156,8 @@ export interface ScrollStaggerItemProps extends HTMLMotionProps<'div'> {
 export function ScrollStaggerItem({
   children,
   variant = 'fade-up',
-  distance = 25,
-  duration = 0.6,
+  distance = 20,
+  duration = 0.5,
   className = '',
   as = 'div',
   ...props
@@ -165,21 +166,20 @@ export function ScrollStaggerItem({
     switch (variant) {
       case 'blur-up':
         return {
-          hidden: { opacity: 0, y: distance * 0.75, filter: 'blur(8px)' },
+          hidden: { opacity: 0, y: distance * 0.75 },
           visible: {
             opacity: 1,
             y: 0,
-            filter: 'blur(0px)',
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
       case 'scale-up':
         return {
-          hidden: { opacity: 0, scale: 0.94 },
+          hidden: { opacity: 0, scale: 0.96 },
           visible: {
             opacity: 1,
             scale: 1,
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
       case 'fade-left':
@@ -188,7 +188,7 @@ export function ScrollStaggerItem({
           visible: {
             opacity: 1,
             x: 0,
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
       case 'fade-right':
@@ -197,7 +197,7 @@ export function ScrollStaggerItem({
           visible: {
             opacity: 1,
             x: 0,
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
       case 'fade':
@@ -205,7 +205,7 @@ export function ScrollStaggerItem({
           hidden: { opacity: 0 },
           visible: {
             opacity: 1,
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
       case 'fade-up':
@@ -215,7 +215,7 @@ export function ScrollStaggerItem({
           visible: {
             opacity: 1,
             y: 0,
-            transition: { duration, ease: [0.21, 0.47, 0.32, 0.98] },
+            transition: { duration, ease: [0.16, 1, 0.3, 1] },
           },
         };
     }
@@ -226,6 +226,7 @@ export function ScrollStaggerItem({
   return (
     <MotionTag
       variants={getItemVariants()}
+      style={{ willChange: 'opacity, transform' }}
       className={cn(className)}
       {...props}
     >
@@ -233,3 +234,4 @@ export function ScrollStaggerItem({
     </MotionTag>
   );
 }
+

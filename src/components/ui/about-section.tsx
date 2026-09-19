@@ -5,6 +5,7 @@ import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import type { Variants } from "framer-motion";
+import { CounterTicker } from "./counter-ticker";
 
 export default function AboutSection3({
   onOpenConsultation,
@@ -105,12 +106,12 @@ export default function AboutSection3({
               className="flex flex-wrap items-center gap-3 sm:gap-4"
             >
               <div className="flex items-center gap-1.5 text-xs sm:text-sm md:text-base font-normal">
-                <span className="text-[#121316] font-normal font-medium">12+</span>
+                <span className="text-[#121316] font-medium"><CounterTicker value={12} suffix="+" /></span>
                 <span className="text-neutral-500 font-normal">years in Pune</span>
                 <span className="text-neutral-300 ml-2">|</span>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm md:text-base font-normal">
-                <span className="text-[#121316] font-normal font-medium">500+</span>
+                <span className="text-[#121316] font-medium"><CounterTicker value={500} suffix="+" /></span>
                 <span className="text-neutral-500 font-normal">deals closed</span>
               </div>
             </TimelineContent>
@@ -123,7 +124,9 @@ export default function AboutSection3({
                 customVariants={revealVariants}
                 className="flex items-baseline gap-1.5 sm:gap-2"
               >
-                <span className="text-[#121316] font-normal text-xl sm:text-2xl md:text-3xl tracking-tight">₹450+ Cr</span>
+                <span className="text-[#121316] font-normal text-xl sm:text-2xl md:text-3xl tracking-tight">
+                  <CounterTicker prefix="₹" value={450} suffix="+ Cr" />
+                </span>
                 <span className="text-neutral-500 uppercase text-[10px] sm:text-xs font-normal">assets</span>
               </TimelineContent>
               <TimelineContent
@@ -133,7 +136,7 @@ export default function AboutSection3({
                 customVariants={revealVariants}
                 className="flex items-center gap-1.5 text-xs sm:text-sm"
               >
-                <span className="text-[#121316] font-normal font-medium">98%</span>
+                <span className="text-[#121316] font-medium"><CounterTicker value={98} suffix="%" /></span>
                 <span className="text-neutral-500 font-normal">satisfaction</span>
               </TimelineContent>
             </div>

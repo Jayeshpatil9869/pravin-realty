@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Property } from '../data/properties';
 import { X, Bed, Bath, Maximize, Phone, Mail, Check, ShieldCheck, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface PropertyModalProps {
   property: Property | null;
@@ -16,14 +17,13 @@ export function PropertyModal({ property, onClose }: PropertyModalProps) {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    if (!property) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  if (!property) return null;
+  }, [property, onClose]);
 
   const todayStr = new Date().toISOString().split('T')[0];
 
@@ -37,31 +37,41 @@ export function PropertyModal({ property, onClose }: PropertyModalProps) {
   };
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/70 backdrop-blur-sm animate-fade-in overflow-y-auto"
-      onClick={onClose}
-    >
-      <div 
-        className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col border border-neutral-100"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-100 bg-white sticky top-0 z-20">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[11px] sm:text-xs font-normal uppercase tracking-wider bg-[#FDE8D7] text-[#9A3412] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shrink-0">
-              {property.category}
-            </span>
-            <span className="text-[11px] sm:text-xs text-neutral-400 font-normal truncate">MLS #{property.id.toUpperCase()}</span>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-colors cursor-pointer shrink-0 ml-2"
-            aria-label="Close modal"
+    <AnimatePresence>
+      {property && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/70 backdrop-blur-sm overflow-y-auto"
+          onClick={onClose}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+            className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col border border-neutral-100"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
-        </div>
+            {/* Header Bar */}
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-neutral-100 bg-white sticky top-0 z-20">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="text-[11px] sm:text-xs font-normal uppercase tracking-wider bg-[#FDE8D7] text-[#9A3412] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full shrink-0">
+                  {property.category}
+                </span>
+                <span className="text-[11px] sm:text-xs text-neutral-400 font-normal truncate">MLS #{property.id.toUpperCase()}</span>
+              </div>
+
+              <button
+                onClick={onClose}
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer shrink-0 ml-2"
+                aria-label="Close modal"
+              >
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
 
         {/* Scrollable Body */}
         <div className="overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
@@ -246,7 +256,9 @@ export function PropertyModal({ property, onClose }: PropertyModalProps) {
           </div>
 
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

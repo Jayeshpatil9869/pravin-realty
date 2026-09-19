@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { PravinLogo } from './PravinLogo';
 import { cn } from '../lib/utils';
 import { RandomLetterSwap } from '@/components/ui/random-letter-swap';
+import { ScrollProgress } from './ui/scroll-progress';
+import { Magnetic } from './ui/magnetic-button';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,8 +13,16 @@ export function Header() {
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const next = window.scrollY > 20;
+          setIsScrolled((prev) => (prev !== next ? next : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -45,6 +55,7 @@ export function Header() {
 
   return (
     <>
+      <ScrollProgress />
       <header 
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 flex justify-center pointer-events-none px-3 sm:px-4"
       >
@@ -60,7 +71,7 @@ export function Header() {
           {/* Pravin Realty Logo */}
           <Link 
             to="/" 
-            className="flex items-center shrink-0"
+            className="flex items-center shrink-0 group transition-transform duration-300 hover:scale-[1.02]"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <PravinLogo variant="dark" />
@@ -93,12 +104,16 @@ export function Header() {
 
           {/* Action CTA Button & Hamburger */}
           <div className="flex items-center space-x-2 sm:space-x-3">
-            <Link 
-              to="/contact"
-              className="hidden sm:inline-flex bg-[#121316] hover:bg-[#252830] text-white text-[12px] sm:text-[13px] font-normal px-4 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm active:scale-95 whitespace-nowrap"
-            >
-              Talk to an Agent
-            </Link>
+            <Magnetic strength={0.25}>
+              <Link 
+                to="/contact"
+                className="hidden sm:inline-flex relative group overflow-hidden bg-[#121316] hover:bg-[#252830] text-white text-[12px] sm:text-[13px] font-normal px-4 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all duration-300 shadow-sm active:scale-95 whitespace-nowrap"
+              >
+                {/* Subtle Sheen Glint */}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
+                <span className="relative z-10">Talk to an Agent</span>
+              </Link>
+            </Magnetic>
 
             {/* Mobile Menu Toggle */}
             <button 

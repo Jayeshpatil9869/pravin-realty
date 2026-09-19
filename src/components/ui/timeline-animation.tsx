@@ -31,15 +31,14 @@ export function TimelineContent({
   const isInView = useInView(targetRef, { once: true, amount: 0.1 });
 
   const defaultVariants: Variants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
+    hidden: { opacity: 0, y: 16 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
-        delay: (i || 0) * 0.15,
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1],
+        delay: (i || 0) * 0.12,
+        duration: 0.45,
+        ease: [0.16, 1, 0.3, 1],
       },
     }),
   };

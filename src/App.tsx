@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Lenis from 'lenis';
+import { ReactLenis, useLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Home } from './pages/Home';
@@ -15,128 +15,150 @@ import { ConsultModal } from './components/ConsultModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { PageRevealAnimation } from './components/PageRevealAnimation';
 
+import { PageTransition } from './components/ui/page-transition';
+
 gsap.registerPlugin(ScrollTrigger);
 
-// Scroll to top upon any route transition or page open
+// Scroll to top upon any route transition or page open using official useLenis hook
 function ScrollToTop() {
   const { pathname, search, hash } = useLocation();
+  const lenis = useLenis();
 
   useEffect(() => {
-    // Disable automatic browser scroll restoration so it doesn't fight our router
+    // Disable automatic browser scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
 
     const resetToTop = () => {
-      // 1. Lenis Smooth Scroll instance reset
-      const lenis = (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance;
       if (lenis) {
         lenis.scrollTo(0, { immediate: true, force: true });
       }
-
-      // 2. Native window and document scroll reset
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     };
 
-    // Immediate execution
     resetToTop();
-
-    // Secondary execution on next render frame to handle layout shifts
     const rafId = requestAnimationFrame(resetToTop);
-    const timeoutId = setTimeout(resetToTop, 50);
+    const timeoutId = setTimeout(resetToTop, 40);
 
     return () => {
       cancelAnimationFrame(rafId);
       clearTimeout(timeoutId);
     };
-  }, [pathname, search, hash]);
+  }, [pathname, search, hash, lenis]);
 
   return null;
+}
+
+function AnimatedRoutes({ 
+  onOpenConsultation, 
+  isRevealFinished 
+}: { 
+  onOpenConsultation: () => void; 
+  isRevealFinished: boolean; 
+}) {
+  const location = useLocation();
+
+  return (
+    <PageTransition>
+      <Routes location={location}>
+        <Route path="/" element={<Home onOpenConsultation={onOpenConsultation} isRevealFinished={isRevealFinished} />} />
+        <Route path="/properties" element={<Properties onOpenConsultation={onOpenConsultation} />} />
+        <Route path="/properties/:slug" element={<PropertyDetail onOpenConsultation={onOpenConsultation} />} />
+        <Route path="/about" element={<About onOpenConsultation={onOpenConsultation} />} />
+        <Route path="/blog" element={<Blog onOpenConsultation={onOpenConsultation} />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/talk-to-agent" element={<Contact />} />
+        {/* Catch-all fallback */}
+        <Route path="*" element={<Home onOpenConsultation={onOpenConsultation} isRevealFinished={isRevealFinished} />} />
+      </Routes>
+    </PageTransition>
+  );
 }
 
 export default function App() {
   const [isConsultOpen, setIsConsultOpen] = useState(false);
   const [showReveal, setShowReveal] = useState(true);
+  const lenisRef = useRef<any>(null);
 
+  // Synchronize Lenis with GSAP ScrollTrigger ticker according to lenis.dev specs
   useEffect(() => {
-    // Initialize buttery Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
-    });
-
-    (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance = lenis;
-    lenis.on('scroll', ScrollTrigger.update);
-
-    if (showReveal) {
-      lenis.stop();
+    const lenis = lenisRef.current?.lenis;
+    if (lenis) {
+      (window as unknown as { __lenisInstance?: unknown }).__lenisInstance = lenis;
+      lenis.on('scroll', ScrollTrigger.update);
     }
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+    function updateTicker(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       gsap.ticker.remove(updateTicker);
-      lenis.destroy();
-      (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance = undefined;
+      (window as unknown as { __lenisInstance?: unknown }).__lenisInstance = undefined;
     };
-  }, [showReveal]);
+  }, []);
 
   const handleRevealComplete = () => {
     setShowReveal(false);
-    const lenis = (window as unknown as { __lenisInstance?: Lenis }).__lenisInstance;
+    const lenis = lenisRef.current?.lenis;
     if (lenis) {
       lenis.start();
     }
   };
 
   return (
-    <BrowserRouter>
-      {/* 1. Page-Reveal Intro Animation on Visit */}
-      {showReveal && (
-        <PageRevealAnimation onComplete={handleRevealComplete} />
-      )}
+    <ReactLenis
+      ref={lenisRef}
+      root
+      autoRaf={false}
+      options={{
+        duration: 1.1,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.2,
+        infinite: false,
+      }}
+    >
+      <BrowserRouter>
+        {/* 1. Page-Reveal Intro Animation on Visit */}
+        {showReveal && (
+          <PageRevealAnimation onComplete={handleRevealComplete} />
+        )}
 
-      <ScrollToTop />
-      <div className="min-h-screen bg-[#FBFBFB] text-[#121316] flex flex-col font-sans selection:bg-[#FDE8D7] selection:text-[#9A3412]">
-        <Header />
-        
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} isRevealFinished={!showReveal} />} />
-            <Route path="/properties" element={<Properties onOpenConsultation={() => setIsConsultOpen(true)} />} />
-            <Route path="/properties/:slug" element={<PropertyDetail onOpenConsultation={() => setIsConsultOpen(true)} />} />
-            <Route path="/about" element={<About onOpenConsultation={() => setIsConsultOpen(true)} />} />
-            <Route path="/blog" element={<Blog onOpenConsultation={() => setIsConsultOpen(true)} />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/talk-to-agent" element={<Contact />} />
-            {/* Catch-all fallback */}
-            <Route path="*" element={<Home onOpenConsultation={() => setIsConsultOpen(true)} isRevealFinished={!showReveal} />} />
-          </Routes>
-        </main>
+        <ScrollToTop />
+        <div className="min-h-screen bg-[#FBFBFB] text-[#121316] flex flex-col font-sans selection:bg-[#FDE8D7] selection:text-[#9A3412]">
+          <Header />
+          
+          <main className="flex-grow flex flex-col">
+            <AnimatedRoutes 
+              onOpenConsultation={() => setIsConsultOpen(true)} 
+              isRevealFinished={!showReveal} 
+            />
+          </main>
 
-        <Footer />
+          <Footer />
 
-        {/* Global Floating WhatsApp Quick Connect */}
-        <FloatingWhatsApp />
+          {/* Global Floating WhatsApp Quick Connect */}
+          <FloatingWhatsApp />
 
-        {/* Global Consultation Modal */}
-        <ConsultModal 
-          isOpen={isConsultOpen} 
-          onClose={() => setIsConsultOpen(false)} 
-        />
-      </div>
-    </BrowserRouter>
+          {/* Global Consultation Modal */}
+          <ConsultModal 
+            isOpen={isConsultOpen} 
+            onClose={() => setIsConsultOpen(false)} 
+          />
+        </div>
+      </BrowserRouter>
+    </ReactLenis>
   );
 }
+
+

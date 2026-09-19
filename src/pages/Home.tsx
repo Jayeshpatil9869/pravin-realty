@@ -9,6 +9,8 @@ import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
 import { Star, ArrowRight } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { Magnetic } from '../components/ui/magnetic-button';
+import { CounterTicker } from '../components/ui/counter-ticker';
 
 import { motion, Variants } from 'framer-motion';
 
@@ -165,23 +167,27 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
               variants={heroButtonVariants}
               className="pt-2 sm:pt-3 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-3.5 w-auto flex-nowrap"
             >
-              <Link 
-                to="/properties" 
-                className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 md:px-6 rounded-full inline-flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
-              >
-                <span>Explore Properties</span>
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#121316] text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform shrink-0">
-                  <ArrowRightIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                </div>
-              </Link>
+              <Magnetic strength={0.2}>
+                <Link 
+                  to="/properties" 
+                  className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 md:px-6 rounded-full inline-flex items-center justify-center gap-1.5 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
+                >
+                  <span>Explore Properties</span>
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#121316] text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform shrink-0">
+                    <ArrowRightIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                  </div>
+                </Link>
+              </Magnetic>
 
               {onOpenConsultation && (
-                <button
-                  onClick={onOpenConsultation}
-                  className="bg-white/15 backdrop-blur-md hover:bg-white/25 text-white border border-white/30 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 rounded-full transition-all duration-300 text-center cursor-pointer whitespace-nowrap active:scale-95"
-                >
-                  Request Callback
-                </button>
+                <Magnetic strength={0.2}>
+                  <button
+                    onClick={onOpenConsultation}
+                    className="bg-white/15 backdrop-blur-md hover:bg-white/25 text-white border border-white/30 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-3.5 sm:px-5 rounded-full transition-all duration-300 text-center cursor-pointer whitespace-nowrap active:scale-95"
+                  >
+                    Request Callback
+                  </button>
+                </Magnetic>
               )}
             </motion.div>
           </motion.div>
@@ -233,18 +239,24 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
               Headquartered in Balewadi, Pune, Pravin Realty specializes in the flourishing markets of West Pune and the wider Pune region, helping clients with residential, commercial, land, and luxury properties. We combine deep local market intelligence with straightforward, client-first advisory.
             </p>
 
-            {/* Numbers Row */}
+            {/* Numbers Row with Smooth Roll-Up CounterTicker */}
             <ScrollStaggerGroup staggerDelay={0.12} className="grid grid-cols-3 gap-2 sm:gap-6 pt-3 sm:pt-4 border-t border-neutral-200/80">
               <ScrollStaggerItem variant="blur-up">
-                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">12+</span>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
+                  <CounterTicker value={12} suffix="+" />
+                </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Years in Pune</span>
               </ScrollStaggerItem>
               <ScrollStaggerItem variant="blur-up">
-                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">500+</span>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
+                  <CounterTicker value={500} suffix="+" />
+                </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Properties Closed</span>
               </ScrollStaggerItem>
               <ScrollStaggerItem variant="blur-up">
-                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">98%</span>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
+                  <CounterTicker value={98} suffix="%" />
+                </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Client Satisfaction</span>
               </ScrollStaggerItem>
             </ScrollStaggerGroup>
@@ -341,8 +353,10 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
           <div className="lg:col-span-6 flex justify-center lg:justify-end">
             <ScrollReveal variant="scale-up" duration={0.7} className="relative w-full max-w-lg aspect-[4/4.5] rounded-3xl overflow-hidden shadow-xl border border-neutral-100 group">
               <img 
-                src="" 
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=85" 
                 alt="Pravin Realty Trusted Real Estate Consultation" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

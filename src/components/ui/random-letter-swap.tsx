@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, Transition } from "motion/react";
+import { motion, Transition } from "framer-motion";
 
 interface RandomLetterSwapProps extends React.HTMLAttributes<HTMLSpanElement> {
   label: string;

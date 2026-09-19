@@ -6,6 +6,7 @@ import { AgentCallout } from '../components/AgentCallout';
 import { SectionEyebrow } from '../components/Icons';
 import { Search } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { motion } from 'framer-motion';
 
 interface PropertiesProps {
   onOpenConsultation?: () => void;
@@ -61,26 +62,36 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
         <ScrollReveal variant="fade-up" delay={0.1}>
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4 bg-white p-3 sm:p-3.5 rounded-3xl border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
             
-            {/* Category Tabs (Swipable on mobile/tablet) */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0 shrink-0">
+            {/* Category Tabs with Animated LayoutId Pill */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0 shrink-0 relative">
               {categories.map((cat) => {
                 const count = cat === 'All' ? PROPERTIES.length : PROPERTIES.filter((p) => p.category === cat).length;
+                const isSelected = activeCategory === cat;
                 return (
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`text-xs font-normal px-3.5 sm:px-4 py-2 rounded-full transition-all cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap active:scale-95 ${
-                      activeCategory === cat
-                        ? 'bg-[#121316] text-white shadow-sm'
-                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    className={`relative text-xs font-normal px-3.5 sm:px-4 py-2 rounded-full transition-colors duration-200 cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap active:scale-95 z-10 ${
+                      isSelected ? 'text-white' : 'text-neutral-600 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200'
                     }`}
                   >
+                    {isSelected && (
+                      <motion.span
+                        layoutId="activeFilterPill"
+                        className="absolute inset-0 bg-[#121316] rounded-full -z-10 shadow-sm"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
                     <span>{cat}</span>
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                      activeCategory === cat ? 'bg-white/20 text-white' : 'bg-neutral-200/80 text-neutral-600'
-                    }`}>
+                    <motion.span
+                      animate={isSelected ? { scale: [1, 1.25, 1] } : { scale: 1 }}
+                      transition={{ duration: 0.25 }}
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                        isSelected ? 'bg-white/20 text-white' : 'bg-neutral-200/80 text-neutral-600'
+                      }`}
+                    >
                       {count}
-                    </span>
+                    </motion.span>
                   </button>
                 );
               })}
