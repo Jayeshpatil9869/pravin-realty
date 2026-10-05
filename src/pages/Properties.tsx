@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { PROPERTIES, Property } from '../data/properties';
+import { Property } from '../data/properties';
 import { PropertyCard } from '../components/PropertyCard';
 import { PropertyModal } from '../components/PropertyModal';
 import { AgentCallout } from '../components/AgentCallout';
@@ -7,12 +7,14 @@ import { SectionEyebrow } from '../components/Icons';
 import { Search } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
 import { motion } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 interface PropertiesProps {
   onOpenConsultation?: () => void;
 }
 
 export function Properties({ onOpenConsultation }: PropertiesProps) {
+  const { properties } = useData();
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -21,7 +23,7 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
   const categories = ['All', 'Residential', 'Commercial', 'Luxury Villa', 'Penthouse', 'Township'];
 
   const filteredProperties = useMemo(() => {
-    let list = PROPERTIES.filter((p) => {
+    let list = properties.filter((p) => {
       const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
       const matchesSearch = 
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -37,7 +39,7 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
     }
 
     return list;
-  }, [activeCategory, searchQuery, priceSort]);
+  }, [properties, activeCategory, searchQuery, priceSort]);
 
   return (
     <div className="min-h-screen pt-24 sm:pt-28 md:pt-36 space-y-12 sm:space-y-16 md:space-y-24 overflow-x-hidden">
@@ -65,7 +67,7 @@ export function Properties({ onOpenConsultation }: PropertiesProps) {
             {/* Category Tabs with Animated LayoutId Pill */}
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0 shrink-0 relative">
               {categories.map((cat) => {
-                const count = cat === 'All' ? PROPERTIES.length : PROPERTIES.filter((p) => p.category === cat).length;
+                const count = cat === 'All' ? properties.length : properties.filter((p) => p.category === cat).length;
                 const isSelected = activeCategory === cat;
                 return (
                   <button

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PROPERTIES, Property } from '../data/properties';
+import { Property } from '../data/properties';
 import { SectionEyebrow, CheckCircleIcon } from '../components/Icons';
 import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
@@ -8,18 +8,20 @@ import { PropertyModal } from '../components/PropertyModal';
 import { ConsultModal } from '../components/ConsultModal';
 import { MapPin, ArrowLeft, ShieldCheck } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { useData } from '../context/DataContext';
 
 interface PropertyDetailProps {
   onOpenConsultation?: () => void;
 }
 
 export function PropertyDetail({ onOpenConsultation }: PropertyDetailProps) {
+  const { properties } = useData();
   const { slug } = useParams<{ slug: string }>();
   const [isTourModalOpen, setIsTourModalOpen] = useState(false);
   const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
 
   // Find property by slug, or fallback to the first property
-  const property: Property = PROPERTIES.find((p) => p.slug === slug) || PROPERTIES[0];
+  const property: Property = properties.find((p) => p.slug === slug) || properties[0];
 
   useEffect(() => {
     window.scrollTo(0, 0);

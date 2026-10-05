@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { BLOG_POSTS, BlogPost } from '../data/blog';
+import { BlogPost } from '../data/blog';
 import { BlogModal } from '../components/BlogModal';
 import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
 import { SectionEyebrow } from '../components/Icons';
 import { ArrowRight } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { useData } from '../context/DataContext';
 
 interface BlogProps {
   onOpenConsultation?: () => void;
 }
 
 export function Blog({ onOpenConsultation }: BlogProps) {
+  const { blogPosts } = useData();
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
   return (
@@ -32,11 +34,11 @@ export function Blog({ onOpenConsultation }: BlogProps) {
         </ScrollReveal>
       </section>
 
-      {/* 2. BLOG GRID (6 Cards) */}
+      {/* 2. BLOG GRID (Cards) */}
       <section className="px-3 sm:px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <ScrollStaggerGroup staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {BLOG_POSTS.map((post) => (
+            {blogPosts.map((post) => (
               <ScrollStaggerItem key={post.id} variant="fade-up">
                 <div 
                   onClick={() => setSelectedPost(post)}

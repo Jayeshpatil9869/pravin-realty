@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Property } from '../data/properties';
 import { X, Bed, Bath, Maximize, Phone, Mail, Check, ShieldCheck, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 interface PropertyModalProps {
   property: Property | null;
@@ -9,6 +10,7 @@ interface PropertyModalProps {
 }
 
 export function PropertyModal({ property, onClose }: PropertyModalProps) {
+  const { addLead } = useData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [tourDate, setTourDate] = useState('');
   const [userName, setUserName] = useState('');
@@ -29,6 +31,18 @@ export function PropertyModal({ property, onClose }: PropertyModalProps) {
 
   const handleSubmitTour = (e: React.FormEvent) => {
     e.preventDefault();
+    if (property) {
+      addLead({
+        name: userName,
+        email: userEmail,
+        phone: userPhone,
+        propertyTitle: property.title,
+        category: property.category,
+        source: 'Property Detail',
+        message: `Requested site visit for "${property.title}" on ${tourDate || 'earliest convenience'}.`
+      });
+    }
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

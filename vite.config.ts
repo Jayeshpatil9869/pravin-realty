@@ -14,4 +14,19 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'animation-vendor': ['gsap', 'lenis'],
+          'icons-vendor': ['lucide-react'],
+          'supabase-vendor': ['@supabase/supabase-js']
+        }
+      }
+    }
+  }
 });

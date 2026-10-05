@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { SectionEyebrow } from '../components/Icons';
 import { CheckCircle2, Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { useData } from '../context/DataContext';
 
 export function Contact() {
+  const { settings, addLead } = useData();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -14,6 +16,17 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
+    // Save to CRM leads
+    addLead({
+      name: fullName,
+      email,
+      phone,
+      message,
+      source: 'Contact Page',
+      category: 'General Inquiry'
+    });
+
     setTimeout(() => {
       setLoading(false);
       setIsSubmitted(true);
@@ -159,7 +172,7 @@ export function Contact() {
                   <div>
                     <p className="font-medium text-[#121316]">Physical Address</p>
                     <p className="leading-relaxed text-neutral-600">
-                      Office No. 1011, 10th Floor, Nandan Probiz, Sr. No. 23, Balewadi Road, Balewadi, Pune - 411045, Maharashtra, India.
+                      {settings.address}
                     </p>
                   </div>
                 </div>
@@ -171,7 +184,7 @@ export function Contact() {
                   <div>
                     <p className="font-medium text-[#121316]">Call & WhatsApp</p>
                     <p className="leading-relaxed">
-                      <a href="tel:+919762416737" className="text-[#121316] hover:underline font-medium">+91 97624 16737</a>
+                      <a href={`tel:${settings.phone}`} className="text-[#121316] hover:underline font-medium">{settings.phone}</a>
                     </p>
                   </div>
                 </div>
@@ -183,8 +196,7 @@ export function Contact() {
                   <div>
                     <p className="font-medium text-[#121316]">Email Inquiries</p>
                     <p className="leading-relaxed space-y-0.5">
-                      <a href="mailto:kpravin2492@gmail.com" className="text-[#121316] hover:underline block break-all">kpravin2492@gmail.com</a>
-                      <a href="mailto:careerspravinrealty@gmail.com" className="text-neutral-500 hover:underline block text-xs break-all">Careers: careerspravinrealty@gmail.com</a>
+                      <a href={`mailto:${settings.email}`} className="text-[#121316] hover:underline block break-all">{settings.email}</a>
                     </p>
                   </div>
                 </div>

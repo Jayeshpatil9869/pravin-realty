@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, CheckCircleIcon, SectionEyebrow } from '../components/Icons';
-import { PROPERTIES, Property } from '../data/properties';
-import { TESTIMONIALS } from '../data/testimonials';
+import { Property } from '../data/properties';
 import { PropertyCard } from '../components/PropertyCard';
 import { PropertyModal } from '../components/PropertyModal';
 import { GrandCtaBanner } from '../components/GrandCtaBanner';
@@ -11,6 +10,7 @@ import { Star, ArrowRight } from 'lucide-react';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
 import { Magnetic } from '../components/ui/magnetic-button';
 import { CounterTicker } from '../components/ui/counter-ticker';
+import { useData } from '../context/DataContext';
 
 import { motion, Variants } from 'framer-motion';
 
@@ -89,9 +89,11 @@ const heroBgVariants: Variants = {
 };
 
 export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps) {
+  const { properties, testimonials, settings } = useData();
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
-  const featuredProperties = PROPERTIES.slice(0, 2);
+  const featuredProperties = properties.filter((p) => p.featured).slice(0, 2);
+  const displayProperties = featuredProperties.length > 0 ? featuredProperties : properties.slice(0, 2);
 
   const trustFeatures = [
     'West Pune Property Experts',
@@ -128,7 +130,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
       <section className="relative w-full h-[100svh] min-h-[600px] flex items-center justify-start pt-20 sm:pt-24 md:pt-28 pb-8 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden">
         {/* Full Window Background Image */}
         <motion.img 
-          src="/hero-villa.png" 
+          src={settings.hero.bgImage || "/hero-villa.png"} 
           alt="Pravin Realty Luxury Properties Pune" 
           initial="hidden"
           animate={isRevealFinished ? "visible" : "hidden"}
@@ -153,14 +155,14 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
               variants={heroTitleVariants}
               className="text-[clamp(34px,5.2vw,54px)] lg:text-[56px] font-normal tracking-[-0.03em] leading-[1.08] text-white [text-shadow:_0_2px_12px_rgba(0,0,0,0.5)] text-left"
             >
-              Find the Right Property. <br className="hidden sm:inline" />Make the Right Move.
+              {settings.hero.title}
             </motion.h1>
 
             <motion.p 
               variants={heroSubtitleVariants}
               className="text-neutral-100 text-[15px] sm:text-base font-normal max-w-md lg:max-w-lg leading-relaxed text-left [text-shadow:_0_1px_8px_rgba(0,0,0,0.5)]"
             >
-              Your trusted partner for residential, commercial & luxury properties in Baner, Balewadi & West Pune.
+              {settings.hero.subtitle}
             </motion.p>
 
             <motion.div 
@@ -172,7 +174,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
                   to="/properties" 
                   className="group bg-white text-[#121316] hover:bg-neutral-100 font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-4 sm:px-6 rounded-full inline-flex items-center justify-center gap-2 sm:gap-2.5 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 text-center whitespace-nowrap"
                 >
-                  <span>Explore Properties</span>
+                  <span>{settings.hero.primaryBtnText || 'Explore Properties'}</span>
                   <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#121316] text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform shrink-0">
                     <ArrowRightIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </div>
@@ -185,7 +187,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
                     onClick={onOpenConsultation}
                     className="bg-black/30 hover:bg-black/45 text-white border border-white/35 backdrop-blur-md font-normal text-xs sm:text-sm py-2.5 sm:py-3 px-4 sm:px-5 rounded-full transition-all duration-300 text-center cursor-pointer whitespace-nowrap active:scale-95"
                   >
-                    Request Callback
+                    {settings.hero.secondaryBtnText || 'Request Callback'}
                   </button>
                 </Magnetic>
               )}
@@ -243,19 +245,19 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
             <ScrollStaggerGroup staggerDelay={0.12} className="grid grid-cols-3 gap-2 sm:gap-6 pt-3 sm:pt-4 border-t border-neutral-200/80">
               <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
-                  <CounterTicker value={12} suffix="+" />
+                  <CounterTicker value={settings.stats.yearsExperience || 12} suffix={settings.stats.yearsSuffix || "+"} />
                 </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Years in Pune</span>
               </ScrollStaggerItem>
               <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
-                  <CounterTicker value={500} suffix="+" />
+                  <CounterTicker value={settings.stats.happyClients || 500} suffix={settings.stats.clientsSuffix || "+"} />
                 </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Properties Closed</span>
               </ScrollStaggerItem>
               <ScrollStaggerItem variant="blur-up">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#121316] tracking-tight block">
-                  <CounterTicker value={98} suffix="%" />
+                  <CounterTicker value={Math.floor((settings.stats.clientRating || 4.9) * 20)} suffix="%" />
                 </span>
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-normal mt-0.5 sm:mt-1 block">Client Satisfaction</span>
               </ScrollStaggerItem>
@@ -294,7 +296,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
 
           {/* Featured Property Cards */}
           <ScrollStaggerGroup staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 w-full">
-            {featuredProperties.map((property) => (
+            {displayProperties.map((property) => (
               <ScrollStaggerItem key={property.id} variant="fade-up" duration={0.65}>
                 <PropertyCard 
                   property={property} 
@@ -429,7 +431,7 @@ export function Home({ onOpenConsultation, isRevealFinished = true }: HomeProps)
 
           {/* 3 Review Cards */}
           <ScrollStaggerGroup staggerDelay={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {TESTIMONIALS.map((t) => (
+            {testimonials.map((t) => (
               <ScrollStaggerItem 
                 key={t.id} 
                 variant="fade-up"

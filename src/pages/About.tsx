@@ -1,18 +1,19 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
-import { TEAM_MEMBERS } from '../data/team';
 import { GrandCtaBanner } from '../components/GrandCtaBanner';
 import { AgentCallout } from '../components/AgentCallout';
 import { SectionEyebrow } from '../components/Icons';
 import { Search, Award, HeartHandshake } from 'lucide-react';
 import AboutSection3 from '../components/ui/about-section';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from '../components/ui/scroll-reveal';
+import { useData } from '../context/DataContext';
 
 interface AboutProps {
   onOpenConsultation?: () => void;
 }
 
 export function About({ onOpenConsultation }: AboutProps) {
+  const { teamMembers } = useData();
   const leftBoxRef = useRef<HTMLDivElement>(null);
   const rightBoxRef = useRef<HTMLDivElement>(null);
 
@@ -218,9 +219,9 @@ export function About({ onOpenConsultation }: AboutProps) {
             </p>
           </ScrollReveal>
 
-          {/* 6 Team Members Grid */}
+          {/* Team Members Grid */}
           <ScrollStaggerGroup staggerDelay={0.1} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {TEAM_MEMBERS.map((member) => (
+            {teamMembers.map((member) => (
               <ScrollStaggerItem 
                 key={member.id} 
                 variant="fade-up"

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Phone, MessageCircle, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 export function FloatingWhatsApp() {
+  const { settings } = useData();
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = '+919762416737';
-  const displayPhone = '+91 97624 16737';
+  const phoneNumber = settings.whatsapp || '919762416737';
+  const displayPhone = settings.phone || '+91 97624 16737';
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto">

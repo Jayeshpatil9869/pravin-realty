@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+import { Instagram, Linkedin, Facebook, Youtube, Phone, Mail, MapPin, Shield } from 'lucide-react';
 import { PravinLogo } from './PravinLogo';
 import { ScrollReveal, ScrollStaggerGroup, ScrollStaggerItem } from './ui/scroll-reveal';
+import { useData } from '../context/DataContext';
 
 export function Footer() {
+  const { settings } = useData();
+
   return (
     <footer className="bg-[#0D0E11] text-[#A1A1AA] pt-12 sm:pt-16 md:pt-20 pb-8 md:pb-12 px-4 sm:px-6 md:px-12 lg:px-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -21,7 +24,7 @@ export function Footer() {
             </p>
             <div className="flex items-center justify-center lg:justify-start gap-2 text-xs text-neutral-400 pt-1 text-center lg:text-left max-w-sm mx-auto lg:mx-0">
               <MapPin className="w-4 h-4 text-neutral-300 shrink-0" />
-              <span>Office 1011, 10th Floor, Nandan Probiz, Balewadi, Pune - 411045</span>
+              <span>{settings.address}</span>
             </div>
           </ScrollStaggerItem>
 
@@ -52,7 +55,7 @@ export function Footer() {
           <ScrollStaggerItem variant="fade-up" className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-3.5 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Trust & Legal</h4>
             <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-neutral-400 font-normal">
-              <li><span className="text-neutral-300">MahaRERA Registered</span></li>
+              <li><span className="text-neutral-300">MahaRERA: {settings.mahaRera}</span></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Legal Due Diligence</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Title Search Reports</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Bank Loan Advisory</Link></li>
@@ -64,20 +67,20 @@ export function Footer() {
             <h4 className="text-xs sm:text-sm font-medium text-white tracking-tight uppercase sm:capitalize">Contact</h4>
             <div className="space-y-2 text-xs sm:text-sm text-neutral-400 font-normal flex flex-col items-center lg:items-start">
               <p>
-                <a href="mailto:kpravin2492@gmail.com" className="hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-1.5 break-all">
-                  <Mail className="w-3.5 h-3.5 shrink-0" /> kpravin2492@gmail.com
+                <a href={`mailto:${settings.email}`} className="hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-1.5 break-all">
+                  <Mail className="w-3.5 h-3.5 shrink-0" /> {settings.email}
                 </a>
               </p>
               <p>
-                <a href="tel:+919762416737" className="hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-1.5">
-                  <Phone className="w-3.5 h-3.5 shrink-0" /> +91 97624 16737
+                <a href={`tel:${settings.phone}`} className="hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-1.5">
+                  <Phone className="w-3.5 h-3.5 shrink-0" /> {settings.phone}
                 </a>
               </p>
               
               {/* Social Icons */}
               <div className="flex items-center justify-center lg:justify-start gap-2 pt-2">
                 <a 
-                  href="https://in.linkedin.com/company/pravin-realty" 
+                  href={settings.socials.linkedin} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="w-8 h-8 rounded-lg bg-[#22252A] text-neutral-300 hover:text-white hover:bg-neutral-700 flex items-center justify-center transition-all cursor-pointer"
@@ -86,7 +89,7 @@ export function Footer() {
                   <Linkedin className="w-3.5 h-3.5" />
                 </a>
                 <a 
-                  href="https://instagram.com/pravinrealty" 
+                  href={settings.socials.instagram} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="w-8 h-8 rounded-lg bg-[#22252A] text-neutral-300 hover:text-white hover:bg-neutral-700 flex items-center justify-center transition-all cursor-pointer"
@@ -95,7 +98,7 @@ export function Footer() {
                   <Instagram className="w-3.5 h-3.5" />
                 </a>
                 <a 
-                  href="https://youtube.com/@pravinrealty" 
+                  href={settings.socials.youtube} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="w-8 h-8 rounded-lg bg-[#22252A] text-neutral-300 hover:text-white hover:bg-neutral-700 flex items-center justify-center transition-all cursor-pointer"
@@ -104,7 +107,7 @@ export function Footer() {
                   <Youtube className="w-3.5 h-3.5" />
                 </a>
                 <a 
-                  href="https://facebook.com/pravinrealty" 
+                  href={settings.socials.facebook} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="w-8 h-8 rounded-lg bg-[#22252A] text-neutral-300 hover:text-white hover:bg-neutral-700 flex items-center justify-center transition-all cursor-pointer"
@@ -158,6 +161,14 @@ export function Footer() {
                 Mahendra Nagpure
               </a>
             </span>
+            <span className="text-neutral-700">•</span>
+            <Link
+              to="/admin"
+              className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+            >
+              <Shield className="w-3 h-3" />
+              <span>Admin Panel</span>
+            </Link>
           </div>
         </ScrollReveal>
 

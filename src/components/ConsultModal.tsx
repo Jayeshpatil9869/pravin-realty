@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, Phone, MessageCircle } from 'lucide-react';
 import { SectionEyebrow } from './Icons';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 interface ConsultModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface ConsultModalProps {
 }
 
 export function ConsultModal({ isOpen, onClose }: ConsultModalProps) {
+  const { addLead } = useData();
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
@@ -27,6 +29,17 @@ export function ConsultModal({ isOpen, onClose }: ConsultModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Save to CRM leads
+    addLead({
+      name,
+      phone: mobile,
+      email,
+      category: interest,
+      source: 'Consultation Modal',
+      message: `Requested consultation for: ${interest}`
+    });
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
